@@ -1,0 +1,16 @@
+{
+  "name": "webssh",
+  "version": "1.0.0",
+  "description": "A simple ssh gateway.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Demon000/webssh.git"
+  },
+  "author": "Demon000",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Demon000/webssh/issues"
+  },
+  "homepage": "https://github.com/Demon000/webssh#readme"
+}
