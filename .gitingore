@@ -71,3 +71,6 @@ typings/
 
 # Serverless directories
 .serverless
+
+# External modules
+./public/js/external
