@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A simple ssh gateway.",
   "main": "index.js",
+  "scripts": {
+    "link": "node ./tasks/link.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Demon000/webssh.git"
