@@ -73,7 +73,7 @@ typings/
 .serverless
 
 # External modules
-./public/js/external
+public/external
 
 # Configuration files
-./config.js
+config.js
