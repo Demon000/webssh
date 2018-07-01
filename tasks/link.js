@@ -2,5 +2,5 @@ const depLinker = require('dep-linker');
 
 console.log('Linking dependencies.')
 
-depLinker.linkDependenciesTo('./public/js/external')
+depLinker.linkDependenciesTo('./public/external')
   .then(() => console.log('Finished.'));
