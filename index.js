@@ -7,6 +7,7 @@ const server = express();
 
 server.use(express.static('public'));
 server.use(session({
+	resave: false,
 	saveUninitialized: false,
 	secret: config.secret,
 	unset: 'destroy'
