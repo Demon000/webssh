@@ -16,7 +16,8 @@
     "url": "https://github.com/Demon000/webssh/issues"
   },
   "homepage": "https://github.com/Demon000/webssh#readme",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "dep-linker": "^1.0.24"
   }
 }
