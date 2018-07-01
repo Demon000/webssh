@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Demon000/webssh#readme",
   "devDependencies": {},
   "dependencies": {
-    "dep-linker": "^1.0.24"
+    "dep-linker": "^1.0.24",
+    "express": "^4.16.3"
   }
 }
