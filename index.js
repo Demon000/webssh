@@ -10,7 +10,7 @@ const server = Express();
 server.use(Express.static('public'));
 
 const httpServer = Http.Server(server);
-const socket = SocketIO(httpServer, {
+const io = SocketIO(httpServer, {
     serveClient: false
 });
 
