@@ -74,3 +74,6 @@ typings/
 
 # External modules
 ./public/js/external
+
+# Configuration files
+./config.js
