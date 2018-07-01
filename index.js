@@ -5,13 +5,13 @@ const Http = require('http');
 const Express = require('express');
 const SocketIO = require('socket.io');
 
-const server = Express();
+const app = Express();
 
-server.use(Express.static('public'));
+app.use(Express.static('public'));
 
-const httpServer = Http.Server(server);
-const io = SocketIO(httpServer, {
+const server = Http.Server(app);
+const io = SocketIO(server, {
     serveClient: false
 });
 
-server.listen(Config.port);
+app.listen(Config.port);
