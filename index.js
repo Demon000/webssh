@@ -1,16 +1,17 @@
-const config = require('./config');
+const Config = require('./config');
 
-const express = require('express');
-const session = require('express-session');
+const Express = require('express');
+const Session = require('express-session');
 
-const server = express();
+const server = Express();
 
-server.use(express.static('public'));
-server.use(session({
+server.use(Express.static('public'));
+
+server.use(Session({
 	resave: false,
 	saveUninitialized: false,
-	secret: config.secret,
+	secret: Config.secret,
 	unset: 'destroy'
 }));
 
-server.listen(config.port);
+server.listen(Config.port);
