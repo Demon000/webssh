@@ -9,15 +9,15 @@ const server = Express();
 server.use(Express.static('public'));
 
 const session = Session({
-	resave: false,
-	saveUninitialized: false,
-	secret: Config.secret,
-	unset: 'destroy'
+    resave: false,
+    saveUninitialized: false,
+    secret: Config.secret,
+    unset: 'destroy'
 });
 server.use(session);
 
 const socket = SocketIO({
-	serveClient: false
+    serveClient: false
 });
 server.use(socket);
 
