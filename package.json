@@ -16,7 +16,9 @@
     "url": "https://github.com/Demon000/webssh/issues"
   },
   "homepage": "https://github.com/Demon000/webssh#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  },
   "dependencies": {
     "dep-linker": "^1.0.24",
     "express": "^4.16.3",
