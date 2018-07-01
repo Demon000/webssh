@@ -2,6 +2,7 @@ const Config = require('./config');
 
 const Express = require('express');
 const Session = require('express-session');
+const SocketIO = require('socket.io');
 
 const server = Express();
 
@@ -14,5 +15,10 @@ const session = Session({
 	unset: 'destroy'
 });
 server.use(session);
+
+const socket = SocketIO({
+	serveClient: false
+});
+server.use(socket);
 
 server.listen(Config.port);
