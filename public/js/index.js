@@ -14,12 +14,11 @@ function SSHTerminal(auth) {
 
     socket.on('connect', function() {
         var options = {
-            rows: xterm.rows,
-            cols: xterm.cols,
             term: 'xterm-256color',
         };
 
         socket.emit('init', options, auth);
+        t.syncSize();
     });
 
     xterm.on('data', function(data) {
@@ -34,9 +33,13 @@ function SSHTerminal(auth) {
         console.error(message);
     });
 
+    t.syncSize = function() {
+        socket.emit('size', xterm.rows, xterm.cols);
+    };
+
     t.fit = function() {
         xterm.fit();
-        socket.emit('size', xterm.rows, xterm.cols);
+        t.setSize();
     };
 
     t.attach = function(element) {
