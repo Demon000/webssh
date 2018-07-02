@@ -1,4 +1,4 @@
-const SSH = require('ssh2').Client;
+const SSH = require('ssh2-promise');
 
 function SSHError(socket, message) {
     socket.emit('ssherror', message);
@@ -23,28 +23,19 @@ function SSHStream(stream, socket) {
 }
 
 function SSHConnection(socket, auth, options) {
-    let connection = new SSH();
+    let connection = new SSH(auth);
 
-    connection.on('ready', () => {
-        connection.shell(options, (err, stream) => {
-            if (err) {
-                SSHError.connectionFailed(socket);
-                return;
-            }
-
-            SSHStream(stream, socket);
-        });
+    connection.shell(options)
+    .then(stream => {
+        SSHStream(stream, socket);
+    })
+    .catch(err => {
+        SSHError.connectionFailed(socket);
     });
 
     connection.on('error', err => {
         SSHError.connectionFailed(socket);
     });
-
-    socket.on('disconnect', () => {
-        connection.end();
-    });
-
-    connection.connect(auth);
 }
 
 function SSHSocket(socket) {
