@@ -17,7 +17,7 @@ function SSHTerminal(auth) {
             term: 'xterm-256color',
         };
 
-        socket.emit('init', options, auth);
+        socket.emit('init', auth, options);
         t.syncSize();
     });
 

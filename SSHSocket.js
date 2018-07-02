@@ -22,7 +22,7 @@ function SSHStream(stream, socket) {
     });
 }
 
-function SSHConnection(socket, options, auth) {
+function SSHConnection(socket, auth, options) {
     let connection = new SSH();
 
     connection.on('ready', () => {
@@ -48,8 +48,8 @@ function SSHConnection(socket, options, auth) {
 }
 
 function SSHSocket(socket) {
-    socket.on('init', (options, auth) => {
-        SSHConnection(socket, options, auth);
+    socket.on('init', (auth, options) => {
+        SSHConnection(socket, auth, options);
     });
 }
 
