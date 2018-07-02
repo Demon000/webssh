@@ -30,6 +30,10 @@ function SSHTerminal(auth) {
         xterm.write(data);
     });
 
+    socket.on('ssherror', function(message) {
+        console.error(message);
+    });
+
     t.fit = function() {
         xterm.fit();
         socket.emit('size', xterm.rows, xterm.cols);
