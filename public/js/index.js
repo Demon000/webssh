@@ -11,13 +11,13 @@ function SSHTerminal(container, auth) {
     var xterm = new Terminal();
     var socket = io.connect('http://localhost:8080');
 
-    var options = {
-        rows: xterm.rows,
-        cols: xterm.cols,
-        term: 'xterm-256color',
-    };
-
     socket.on('connect', function() {
+        var options = {
+            rows: xterm.rows,
+            cols: xterm.cols,
+            term: 'xterm-256color',
+        };
+
         socket.emit('init', options, auth);
     });
 
