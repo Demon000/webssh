@@ -7,7 +7,8 @@ var container = document.querySelector('#terminal');
 
 Terminal.applyAddon(fit);
 
-function SSHTerminal(container, auth) {
+function SSHTerminal(auth) {
+    var t = this;
     var xterm = new Terminal();
     var socket = io();
 
@@ -29,23 +30,27 @@ function SSHTerminal(container, auth) {
         xterm.write(data);
     });
 
-    xterm.open(container);
-    xterm.fit();
+    t.fit = function() {
+        xterm.fit();
+        socket.emit('size', xterm.rows, xterm.cols);
+    };
+
+    t.attach = function(element) {
+        xterm.open(element);
+        t.fit();
+    };
 
     window.addEventListener('resize', function() {
-        xterm.fit();
-        socket.emit('resize', {
-            cols: xterm.cols,
-            rows: xterm.rows
-        });
+        t.fit();
     });
 }
 
 connectButton.addEventListener('click', function() {
-    SSHTerminal(container, {
+    var terminal = new SSHTerminal({
         host: hostInput.value,
         port: portInput.value,
         username: usernameInput.value,
         password: passwordInput.value
     });
+    terminal.attach(container);
 });

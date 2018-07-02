@@ -17,8 +17,8 @@ function SSHStream(stream, socket) {
         stream.write(data);
     });
 
-    socket.on('resize', options => {
-        stream.setWindow(options.rows, options.cols);
+    socket.on('size', (rows, cols) => {
+        stream.setWindow(rows, cols);
     });
 }
 
