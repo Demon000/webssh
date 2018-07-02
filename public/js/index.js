@@ -39,7 +39,7 @@ function SSHTerminal(auth) {
 
     t.fit = function() {
         xterm.fit();
-        t.setSize();
+        t.syncSize();
     };
 
     t.attach = function(element) {
