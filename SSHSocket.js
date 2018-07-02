@@ -1,5 +1,13 @@
 const SSH = require('ssh2').Client;
 
+function SSHError(socket, message) {
+    socket.emit('ssherror', message);
+}
+
+SSHError.connectionFailed = function(socket) {
+    SSHError(socket, 'Connection failed.');
+}
+
 function SSHStream(stream, socket) {
     stream.on('data', data => {
         socket.emit('data', data.toString('utf-8'));
@@ -20,11 +28,16 @@ function SSHConnection(socket, options, auth) {
     connection.on('ready', () => {
         connection.shell(options, (err, stream) => {
             if (err) {
-                throw err;
+                SSHError.connectionFailed(socket);
+                return;
             }
 
             SSHStream(stream, socket);
         });
+    });
+
+    connection.on('error', err => {
+        SSHError.connectionFailed(socket);
     });
 
     socket.on('disconnect', () => {
