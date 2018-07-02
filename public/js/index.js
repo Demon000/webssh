@@ -9,7 +9,7 @@ Terminal.applyAddon(fit);
 
 function SSHTerminal(container, auth) {
     var xterm = new Terminal();
-    var socket = io.connect('http://localhost:8080');
+    var socket = io();
 
     socket.on('connect', function() {
         var options = {
