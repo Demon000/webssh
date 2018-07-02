@@ -48,9 +48,7 @@ function SSHConnection(socket, auth, options) {
 }
 
 function SSHSocket(socket) {
-    socket.on('init', (auth, options) => {
-        SSHConnection(socket, auth, options);
-    });
+    socket.on('init', SSHConnection.bind(this, socket));
 }
 
 module.exports = SSHSocket;
