@@ -22,7 +22,7 @@ function SSHStream(stream, socket) {
     });
 }
 
-function SSHConnection(socket, auth, options) {
+function SSHSocket(socket, auth, options) {
     let connection = new SSH(auth);
 
     connection.shell(options)
@@ -36,10 +36,6 @@ function SSHConnection(socket, auth, options) {
     connection.on('error', err => {
         SSHError.connectionFailed(socket);
     });
-}
-
-function SSHSocket(socket) {
-    socket.on('init', SSHConnection.bind(this, socket));
 }
 
 module.exports = SSHSocket;

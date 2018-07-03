@@ -14,6 +14,8 @@ const server = Http.Server(app);
 const io = SocketIO(server, {
     serveClient: false
 });
-io.on('connect', SSHSocket);
+io.on('connect', function(socket) {
+	socket.on('init-ssh', SSHSocket.bind(this, socket));
+});
 
 server.listen(Config.port);

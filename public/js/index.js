@@ -16,7 +16,7 @@ function SSHTerminal(auth) {
     var socket = io();
 
     socket.on('connect', function() {
-        socket.emit('init', auth, {
+        socket.emit('init-ssh', auth, {
             term: 'xterm-256color',
         });
         t.syncSize();
