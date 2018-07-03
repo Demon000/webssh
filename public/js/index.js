@@ -44,6 +44,8 @@ function SSHTerminal(auth) {
 
     t.attach = function(element) {
         xterm.open(element);
+        xterm.setOption('fontFamily', '"Roboto Mono"');
+        xterm.setOption('fontSize', 12);
         t.fit();
     };
 
