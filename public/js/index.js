@@ -9,7 +9,10 @@ Terminal.applyAddon(fit);
 
 function SSHTerminal(auth) {
     var t = this;
-    var xterm = new Terminal();
+    var xterm = new Terminal({
+        fontFamily: '"Roboto Mono"',
+        fontSize: 12
+    });
     var socket = io();
 
     socket.on('connect', function() {
@@ -44,8 +47,6 @@ function SSHTerminal(auth) {
 
     t.attach = function(element) {
         xterm.open(element);
-        xterm.setOption('fontFamily', '"Roboto Mono"');
-        xterm.setOption('fontSize', 12);
         t.fit();
     };
 
