@@ -16,11 +16,9 @@ function SSHTerminal(auth) {
     var socket = io();
 
     socket.on('connect', function() {
-        var options = {
+        socket.emit('init', auth, {
             term: 'xterm-256color',
-        };
-
-        socket.emit('init', auth, options);
+        });
         t.syncSize();
     });
 
