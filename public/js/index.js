@@ -9,11 +9,11 @@ Terminal.applyAddon(fit);
 
 function SSHTerminal(auth) {
     var t = this;
+    var socket = io();
     var xterm = new Terminal({
         fontFamily: '"Roboto Mono"',
         fontSize: 14
     });
-    var socket = io();
 
     socket.on('connect', function() {
         socket.emit('init-ssh', auth, {
