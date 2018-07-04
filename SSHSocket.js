@@ -4,10 +4,6 @@ function SSHError(socket, message) {
     socket.emit('ssh:error', message);
 }
 
-SSHError.connectionFailed = function(socket) {
-    SSHError(socket, 'Connection failed.');
-}
-
 function SSHStream(stream, socket) {
     stream.on('data', data => {
         socket.emit('data', data.toString('utf-8'));
@@ -35,7 +31,7 @@ function SSHSocket(socket, auth, options, isConnected) {
     });
 
     connection.on('error', err => {
-        SSHError.connectionFailed(socket);
+        SSHError(socket, 'Connection error.');
     });
 }
 
