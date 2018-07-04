@@ -23,10 +23,12 @@ function SSHTerminal(auth) {
         }
     }
 
+    var options = {
+        term: 'xterm-256color',
+    };
+
     socket.on('connect', function() {
-        socket.emit('init-ssh', auth, {
-            term: 'xterm-256color',
-        }, isConnected);
+        socket.emit('init-ssh', auth, options, isConnected);
         t.syncSize();
     });
 
