@@ -1,7 +1,7 @@
 const SSH = require('ssh2-promise');
 
 function SSHError(socket, message) {
-    socket.emit('ssherror', message);
+    socket.emit('ssh:error', message);
 }
 
 SSHError.connectionFailed = function(socket) {

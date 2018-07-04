@@ -28,7 +28,7 @@ function SSHTerminal(auth) {
     };
 
     socket.on('connect', function() {
-        socket.emit('init-ssh', auth, options, isConnected);
+        socket.emit('ssh:init', auth, options, isConnected);
         t.syncSize();
     });
 
@@ -40,7 +40,7 @@ function SSHTerminal(auth) {
         xterm.write(data);
     });
 
-    socket.on('ssherror', function(message) {
+    socket.on('ssh:error', function(message) {
         console.error(message);
     });
 
