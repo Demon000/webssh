@@ -15,7 +15,7 @@ const io = SocketIO(server, {
     serveClient: false
 });
 io.on('connect', function(socket) {
-	socket.on('ssh:init', SSHSocket.bind(this, socket));
+	socket.on('ssh:connect', SSHSocket.bind(this, socket));
 });
 
 server.listen(Config.port);
