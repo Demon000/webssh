@@ -63,9 +63,7 @@ function SSHTerminal(auth) {
         socket.disconnect();
     };
 
-    window.addEventListener('resize', function() {
-        t.fit();
-    });
+    window.addEventListener('resize', t.fit);
 }
 
 connectButton.addEventListener('click', function() {
