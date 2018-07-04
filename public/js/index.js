@@ -33,10 +33,10 @@ function SSHTerminal(auth) {
     });
 
     xterm.on('data', function(data) {
-        socket.emit('data', data);
+        socket.emit('ssh:data', data);
     });
 
-    socket.on('data', function(data) {
+    socket.on('ssh:data', function(data) {
         xterm.write(data);
     });
 
@@ -45,7 +45,7 @@ function SSHTerminal(auth) {
     });
 
     t.syncSize = function() {
-        socket.emit('size', xterm.rows, xterm.cols);
+        socket.emit('ssh:size', xterm.rows, xterm.cols);
     };
 
     t.fit = function() {

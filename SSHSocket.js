@@ -6,14 +6,14 @@ function SSHError(socket, message) {
 
 function SSHStream(stream, socket) {
     stream.on('data', data => {
-        socket.emit('data', data.toString('utf-8'));
+        socket.emit('ssh:data', data.toString('utf-8'));
     });
 
-    socket.on('data', data => {
+    socket.on('ssh:data', data => {
         stream.write(data);
     });
 
-    socket.on('size', (rows, cols) => {
+    socket.on('ssh:size', (rows, cols) => {
         stream.setWindow(rows, cols);
     });
 }
