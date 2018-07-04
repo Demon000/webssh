@@ -19,7 +19,7 @@ function SSHTerminal(auth) {
         if (connected) {
             console.log('connected');
         } else {
-            console.log('failed to connect');
+            t.destroy();
         }
     }
 
@@ -54,6 +54,11 @@ function SSHTerminal(auth) {
     t.attach = function(element) {
         xterm.open(element);
         t.fit();
+    };
+
+    t.destroy = function() {
+        xterm.dispose();
+        socket.disconnect();
     };
 
     window.addEventListener('resize', function() {
