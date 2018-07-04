@@ -15,10 +15,18 @@ function SSHTerminal(auth) {
         fontSize: 14
     });
 
+    function isConnected(connected) {
+        if (connected) {
+            console.log('connected');
+        } else {
+            console.log('failed to connect');
+        }
+    }
+
     socket.on('connect', function() {
         socket.emit('init-ssh', auth, {
             term: 'xterm-256color',
-        });
+        }, isConnected);
         t.syncSize();
     });
 

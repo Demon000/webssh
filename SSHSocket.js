@@ -22,15 +22,16 @@ function SSHStream(stream, socket) {
     });
 }
 
-function SSHSocket(socket, auth, options) {
+function SSHSocket(socket, auth, options, isConnected) {
     let connection = new SSH(auth);
 
     connection.shell(options)
     .then(stream => {
+        isConnected(true);
         SSHStream(stream, socket);
     })
     .catch(err => {
-        SSHError.connectionFailed(socket);
+        isConnected(false);
     });
 
     connection.on('error', err => {
