@@ -5,9 +5,12 @@ function SSHError(socket, message) {
 }
 
 function SSHStream(stream, socket) {
-    stream.on('data', data => {
+    function dataFn(data) {
         socket.emit('ssh:data', data.toString('utf-8'));
-    });
+    }
+
+    stream.on('data', dataFn);
+    stream.stderr.on('data', dataFn);
 
     socket.on('ssh:data', data => {
         stream.write(data);
