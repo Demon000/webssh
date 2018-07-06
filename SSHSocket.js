@@ -22,6 +22,11 @@ function SSHStream(stream, socket) {
 }
 
 function SSHSocket(socket, auth, options, isConnected) {
+    /*
+     * For some reason, once a successful connection is established,
+     * even incorrect login credentials will still generate a proper
+     * connection.
+     */
     let connection = new SSH(auth);
 
     connection.shell(options)
