@@ -1,5 +1,4 @@
 function SSHLogin(auth, successFn) {
-    var l = this;
     var socket = io();
 
     socket.on('connect', function() {
