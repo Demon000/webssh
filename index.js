@@ -11,6 +11,7 @@ const app = Express();
 const server = Server(app);
 
 app.use(Express.static('public'));
+app.use(Express.json());
 
 const session = Session({
     resave: false,
