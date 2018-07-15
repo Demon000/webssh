@@ -26,7 +26,7 @@ const io = SocketIO(server, {
 io.use((socket, next) => {
     session(socket.request, socket.request.res, next);
 });
-io.on('connect', function(socket) {
+io.on('connect', socket => {
 	socket.on('ssh:connect', SSHSocket.bind(this, socket));
 });
 
