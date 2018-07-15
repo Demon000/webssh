@@ -1,16 +1,14 @@
-var hostInput = document.querySelector('#host');
-var portInput = document.querySelector('#port');
+var serverInput = document.querySelector('#server');
 var usernameInput = document.querySelector('#username');
 var passwordInput = document.querySelector('#password');
 var connectButton = document.querySelector('#connect');
-var container = document.querySelector('#terminal');
 
 connectButton.addEventListener('click', function() {
-    var terminal = new SSHTerminal({
-        host: hostInput.value,
-        port: portInput.value,
+    var terminal = new SSHLogin({
+        server: serverInput.value,
         username: usernameInput.value,
         password: passwordInput.value
+    }, function(connected) {
+        console.log(connected);
     });
-    terminal.attach(container);
 });

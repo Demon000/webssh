@@ -1,5 +1,5 @@
 const SocketIO = require('socket.io');
-const SSHSocket = require('./SSHSocket');
+const SSHSocket = require('./LimitedSSHSocket');
 
 module.exports = function(server, session) {
 	const io = SocketIO(server, {
