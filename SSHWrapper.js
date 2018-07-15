@@ -1,15 +1,15 @@
 const SSH = require('ssh2-promise');
 
-function sendSocketError(socket, message) {
-    socket.emit('ssh:error', message);
+function SocketError(message) {
+    this.emit('ssh:error', message);
 }
 
-function sendSocketData(socket, data) {
-    socket.emit('ssh:data', data.toString('utf-8'));
+function SocketData(data) {
+    this.emit('ssh:data', data.toString('utf-8'));
 }
 
 function bindSocketStream(socket, stream) {
-    const dataFn = sendSocketData.bind(this, socket);
+    const dataFn = SocketData.bind(socket);
     stream.on('data', dataFn);
     stream.stderr.on('data', dataFn);
 
@@ -41,13 +41,8 @@ function SSHSocket(socket, auth, options, isConnected) {
         isConnected(connected);
     });
 
-    connection.on('error', err => {
-        sendSocketError(socket, 'Connection error.');
-    });
-
-    socket.on('disconnect', function() {
-        connection.close();
-    });
+    connection.on('error', SocketError.bind(socket, 'Connection error.'));
+    socket.on('disconnect', connection.close);
 }
 
 module.exports = {
