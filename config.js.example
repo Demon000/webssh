@@ -3,7 +3,7 @@ module.exports = {
 	secret: "your secret",
 	servers: {
 		"banana": {
-			ip: "example.com",
+			host: "example.com",
 			port: 22
 		}
 	}
