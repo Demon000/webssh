@@ -1,13 +1,12 @@
 const Config = require('./config');
 
-const Http = require('http');
-
 const Express = require('express');
-const SocketIO = require('socket.io');
-const SSHSocket = require('./SSHSocket');
+const Server = require('http').Server;
 const Session = require('express-session');
+const Socket = require('./socket');
 
 const app = Express();
+const server = Server(app);
 
 app.use(Express.static('public'));
 
@@ -19,15 +18,6 @@ const session = Session({
 });
 app.use(session);
 
-const server = Http.Server(app);
-const io = SocketIO(server, {
-    serveClient: false
-});
-io.use((socket, next) => {
-    session(socket.request, socket.request.res, next);
-});
-io.on('connect', socket => {
-	socket.on('ssh:connect', SSHSocket.bind(this, socket));
-});
+Socket(server, session);
 
 server.listen(Config.port);
