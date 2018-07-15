@@ -24,10 +24,11 @@ function bindSocketStream(socket, stream) {
 
 function SSHConnection(auth, options, isConnected) {
     const connection = new SSH(auth);
+    const fn = isConnected.bind(connection);
 
     connection.shell(options)
-    .then(stream => isConnected(true, stream));
-    .catch(err => isConnected(false, null));
+    .then(stream => fn(true, stream));
+    .catch(err => fn(false, null));
 
     return connection;
 }
@@ -38,7 +39,7 @@ function SSHSocket(socket, auth, options, isConnected) {
             bindSocketStream(socket, stream);
         }
 
-        isConnected(connected);
+        isConnected.call(connection, connected);
     });
 
     connection.on('error', SocketError.bind(socket, 'Connection error.'));
