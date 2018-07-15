@@ -10,9 +10,14 @@ function fillAuth(auth) {
 	return auth;
 }
 
+function SSHConnection(auth, options, isConnected) {
+	SSHWrapper.SSHConnection(fillAuth(auth), options, isConnected);
+}
+function SSHSocket(socket, auth, options, isConnected) {
+	SSHWrapper.SSHSocket(socket, fillAuth(auth), options, isConnected);
+}
+
 module.exports = {
-	SSHConnection: (auth, options, isConnected) =>
-		SSHWrapper.SSHConnection(fillAuth(auth), options, isConnected),
-	SSHSocket: (socket, auth, options, isConnected) =>
-		SSHWrapper.SSHSocket(socket, fillAuth(auth), options, isConnected)
+	SSHConnection,
+	SSHSocket
 };
