@@ -12,14 +12,8 @@ function bindSocketStream(socket, stream) {
     const dataFn = SocketData.bind(socket);
     stream.on('data', dataFn);
     stream.stderr.on('data', dataFn);
-
-    socket.on('ssh:data', data => {
-        stream.write(data);
-    });
-
-    socket.on('ssh:size', (rows, cols) => {
-        stream.setWindow(rows, cols);
-    });
+    socket.on('ssh:data', data => stream.write(data));
+    socket.on('ssh:size', (rows, cols) => stream.setWindow(rows, cols));
 }
 
 function SSHConnection(auth, options, isConnected) {
