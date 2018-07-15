@@ -21,16 +21,27 @@ function SSHStream(stream, socket) {
     });
 }
 
-function SSHSocket(socket, auth, options, isConnected) {
-    let connection = new SSH(auth);
+function SSHConnection(auth, isConnected) {
+    const connection = new SSH(auth);
 
     connection.shell(options)
     .then(stream => {
-        isConnected(true);
-        SSHStream(stream, socket);
+        isConnected(true, stream);
     })
     .catch(err => {
-        isConnected(false);
+        isConnected(false, null);
+    });
+
+    return connection;
+}
+
+function SSHSocket(socket, auth, options, isConnected) {
+    const connection = SSHConnection(auth, (connected, stream) => {
+        if (connected) {
+            SSHStream(stream, socket);
+        }
+
+        isConnected(connected);
     });
 
     connection.on('error', err => {
