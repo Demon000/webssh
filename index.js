@@ -6,7 +6,9 @@ const Express = require('express');
 const Server = require('http').Server;
 const Session = require('express-session');
 const SocketIO = require('socket.io');
-const SSHSocket = require('./LimitedSSHSocket');
+const SSHWrapper = require('./LimitedSSHWrapper');
+const SSHSocket = SSHWrapper.SSHSocket;
+const SSHConnection = SSHWrapper.SSHConnection;
 
 const app = Express();
 const server = Server(app);

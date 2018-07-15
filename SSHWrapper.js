@@ -54,4 +54,7 @@ function SSHSocket(socket, auth, options, isConnected) {
     });
 }
 
-module.exports = SSHSocket;
+module.exports = {
+    SSHConnection,
+    SSHSocket
+};
