@@ -22,30 +22,17 @@
 	<script src="external/socket.io-client/dist/socket.io.js"></script>
 </head>
 <body>
-	<div class="input-group">
-		<label>Host</label>
-		<input id="host" type="text">
-	</div>
-	<div class="input-group">
-		<label>Port</label>
-		<input id="port" type="number">
-	</div>
-	<div class="input-group">
-		<label>Username</label>
-		<input id="username" type="text">
-	</div>
-	<div class="input-group">
-		<label>Password</label>
-		<input id="password" type="password"><br>
-	</div>
+	<div id="auth">
+		<div class="input-group">
+			<label>Username</label>
+			<input id="username" type="text">
+		</div>
+		<div class="input-group">
+			<label>Password</label>
+			<input id="password" type="password"><br>
+		</div>
 
-	<button id="connect">Connect</button>
-
-	<div id="terminal"></div>
-
-	<div id="taskbar">
-		<div class="task">terminal 1</div>
-		<div class="task">terminal 2</div>
+		<button id="connect">Connect</button>
 	</div>
 
 	<script src="js/SSHLogin.js"></script>
