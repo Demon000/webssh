@@ -27,7 +27,7 @@ function SSHConnection(auth, options, isConnected) {
     const fn = isConnected.bind(connection);
 
     connection.shell(options)
-    .then(stream => fn(true, stream));
+    .then(stream => fn(true, stream))
     .catch(err => fn(false, null));
 
     return connection;
