@@ -36,10 +36,23 @@ io.on('connect', socket => {
     socket.on('ssh:connect', SSHSocket.bind(this, socket));
 });
 
-app.get('/', (req, res) => {
-    if (!req.session.auth) {
-        res.sendFile(path.join(__dirname, 'public/auth.html'));
-    }
+app.route('/auth')
+.get((req, res) => {
+    res.sendFile(path.join(__dirname, 'public/auth.html'));
+})
+.post((req, res) => {
+    const auth = req.body;
+    SSHConnection(auth, {}, function(connected) {
+        this.close();
+
+        if (connected) {
+            req.session.auth = auth;
+        }
+
+        res.json({
+            success: connected
+        });
+    });
 });
 
 app.get('/servers', (req, res) => {
