@@ -1,3 +1,5 @@
+const path = require('path');
+
 const Config = require('./config');
 
 const Express = require('express');
@@ -19,6 +21,12 @@ const session = Session({
 app.use(session);
 
 Socket(server, session);
+
+app.get('/', (req, res) => {
+    if (!req.session.auth) {
+        res.sendFile(path.join(__dirname, 'public/auth.html'));
+    }
+});
 
 app.get('/servers', (req, res) => {
     res.json(Object.keys(Config.servers));
