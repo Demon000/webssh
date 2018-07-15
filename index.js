@@ -11,10 +11,10 @@ const server = Server(app);
 app.use(Express.static('public'));
 
 const session = Session({
-  resave: false,
-  saveUninitialized: false,
-  secret: Config.secret,
-  unset: 'destroy'
+    resave: false,
+    saveUninitialized: false,
+    secret: Config.secret,
+    unset: 'destroy'
 });
 app.use(session);
 
