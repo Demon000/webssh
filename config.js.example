@@ -1,4 +1,10 @@
 module.exports = {
 	port: 8080,
-	secret: "your secret"
+	secret: "your secret",
+	servers: {
+		"banana": {
+			ip: "example.com",
+			port: 22
+		}
+	}
 };

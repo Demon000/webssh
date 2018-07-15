@@ -20,4 +20,8 @@ app.use(session);
 
 Socket(server, session);
 
+app.get('/servers', (req, res) => {
+    res.json(Object.keys(Config.servers));
+});
+
 server.listen(Config.port);
