@@ -7,8 +7,6 @@ function getServer(name) {
 
 function fillAuth(auth) {
 	Object.assign(auth, getServer(auth.server));
-	delete auth.server;
-	console.log(auth.server);
 	return auth;
 }
 
