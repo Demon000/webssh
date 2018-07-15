@@ -34,8 +34,8 @@ function SSHSocket(socket, auth, options, isConnected) {
             bindSocketStream(socket, stream);
         }
 
-        connection.on('error', () => sendSocketError(socket, 'Connection error.'));
-        socket.on('disconnect', () => connection.close);
+        this.on('error', () => sendSocketError(socket, 'Connection error.'));
+        socket.on('disconnect', () => this.close());
 
         isConnected.call(this, connected);
     });
