@@ -5,7 +5,8 @@ const Config = require('./config');
 const Express = require('express');
 const Server = require('http').Server;
 const Session = require('express-session');
-const Socket = require('./socket');
+const SocketIO = require('socket.io');
+const SSHSocket = require('./LimitedSSHSocket');
 
 const app = Express();
 const server = Server(app);
@@ -21,7 +22,17 @@ const session = Session({
 });
 app.use(session);
 
-Socket(server, session);
+const io = SocketIO(server, {
+    serveClient: false
+});
+
+io.use((socket, next) => {
+    session(socket.request, socket.request.res, next);
+});
+
+io.on('connect', socket => {
+    socket.on('ssh:connect', SSHSocket.bind(this, socket));
+});
 
 app.get('/', (req, res) => {
     if (!req.session.auth) {
