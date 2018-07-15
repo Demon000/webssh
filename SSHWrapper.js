@@ -26,12 +26,8 @@ function SSHConnection(auth, options, isConnected) {
     const connection = new SSH(auth);
 
     connection.shell(options)
-    .then(stream => {
-        isConnected(true, stream);
-    })
-    .catch(err => {
-        isConnected(false, null);
-    });
+    .then(stream => isConnected(true, stream));
+    .catch(err => isConnected(false, null));
 
     return connection;
 }
