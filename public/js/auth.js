@@ -4,11 +4,16 @@ var passwordInput = document.querySelector('#password');
 var connectButton = document.querySelector('#connect');
 
 connectButton.addEventListener('click', function() {
-    var terminal = new SSHLogin({
+    var auth = {
         server: serverInput.value,
         username: usernameInput.value,
         password: passwordInput.value
-    }, function(connected) {
-        console.log(connected);
+    };
+
+    superagent
+    .post('/auth')
+    .send(auth)
+    .then(function(response) {
+        console.log(response.body);
     });
 });
