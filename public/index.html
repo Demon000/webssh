@@ -1,42 +1,42 @@
 <!doctype html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
 
-	<link rel="stylesheet" href="css/index.css" />
-	<title>WebSSH</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <title>WebSSH</title>
 
-	<!-- Roboto -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,700,700i" rel="stylesheet">
+    <!-- Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,700,700i" rel="stylesheet">
 
-	<!-- Xterm -->
-	<link rel="stylesheet" href="external/xterm/dist/xterm.css" />
-	<script src="external/xterm/dist/xterm.js"></script>
-	<script src="external/xterm/dist/addons/fit/fit.js"></script>
+    <!-- Xterm -->
+    <link rel="stylesheet" href="external/xterm/dist/xterm.css" />
+    <script src="external/xterm/dist/xterm.js"></script>
+    <script src="external/xterm/dist/addons/fit/fit.js"></script>
 
-	<!-- Event Emitter 3 -->
-	<script src="external/eventemitter3/index.js"></script>
+    <!-- Event Emitter 3 -->
+    <script src="external/eventemitter3/index.js"></script>
 
-	<!-- Socket.IO -->
-	<script src="external/socket.io-client/dist/socket.io.js"></script>
+    <!-- Socket.IO -->
+    <script src="external/socket.io-client/dist/socket.io.js"></script>
 </head>
 <body>
-	<div id="auth">
-		<div class="input-group">
-			<label>Username</label>
-			<input id="username" type="text">
-		</div>
-		<div class="input-group">
-			<label>Password</label>
-			<input id="password" type="password"><br>
-		</div>
+    <div id="auth">
+        <div class="input-group">
+            <label>Username</label>
+            <input id="username" type="text">
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input id="password" type="password"><br>
+        </div>
 
-		<button id="connect">Connect</button>
-	</div>
+        <button id="connect">Connect</button>
+    </div>
 
-	<script src="js/SSHLogin.js"></script>
-	<script src="js/SSHTerminal.js"></script>
-	<script src="js/index.js"></script>
+    <script src="js/SSHLogin.js"></script>
+    <script src="js/SSHTerminal.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
