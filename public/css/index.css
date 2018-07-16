@@ -59,11 +59,6 @@ button:disabled {
 .input-group {
     margin-bottom: 24px;
 }
-.input-group .note {
-    margin: 0;
-    font-size: 14px;
-    line-height: 20px;
-}
 .input-group label {
     padding-top: 8px;
     padding-bottom: 4px;
