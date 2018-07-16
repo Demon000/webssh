@@ -8,7 +8,7 @@ function sendSocketData(socket, data) {
     socket.emit('ssh:data', data.toString('utf-8'));
 }
 
-function bindSocketStream(socket, stream) {
+function bindSocketToStream(socket, stream) {
     const dataFn = sendSocketData.bind(null, socket);
     stream.on('data', dataFn);
     stream.stderr.on('data', dataFn);
@@ -36,7 +36,7 @@ function SSHConnection(auth, options, isConnected) {
 function SSHSocket(socket, auth, options, isConnected) {
     SSHConnection(auth, options, (connected, stream) => {
         if (connected) {
-            bindSocketStream(socket, stream);
+            bindSocketToStream(socket, stream);
         }
 
         this.on('error', function() {
