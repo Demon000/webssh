@@ -13,8 +13,13 @@ function bindSocketStream(socket, stream) {
     stream.on('data', dataFn);
     stream.stderr.on('data', dataFn);
 
-    socket.on('ssh:data', data => stream.write(data));
-    socket.on('ssh:size', (rows, cols) => stream.setWindow(rows, cols));
+    socket.on('ssh:data', function(data) {
+        stream.write(data)
+    });
+
+    socket.on('ssh:size', function(rows, cols) {
+        stream.setWindow(rows, cols)
+    });
 }
 
 function SSHConnection(auth, options, isConnected) {
@@ -34,8 +39,13 @@ function SSHSocket(socket, auth, options, isConnected) {
             bindSocketStream(socket, stream);
         }
 
-        this.on('error', () => sendSocketError(socket, 'Connection error.'));
-        socket.on('disconnect', () => this.close());
+        this.on('error', function() {
+            sendSocketError(socket, 'Connection error.');
+        });
+
+        socket.on('disconnect', function() {
+            this.close();
+        });
 
         isConnected.call(this, connected);
     });
