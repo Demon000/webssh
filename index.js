@@ -34,11 +34,11 @@ io.on('connect', function(socket) {
     socket.on('ssh:connect', SSH.Socket.bind(this, socket));
 });
 
-app.route('/auth')
-.get(function(req, res) {
+app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'public/auth.html'));
-})
-.post(function(req, res) {
+});
+
+app.post('/auth', function(req, res) {
     const auth = req.body;
     SSH.Connection(auth, {}, function(connected) {
         this.close();
