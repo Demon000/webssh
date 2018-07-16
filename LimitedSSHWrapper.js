@@ -6,8 +6,7 @@ function getServer(name) {
 }
 
 function fillAuth(auth) {
-	Object.assign(auth, getServer(auth.server));
-	return auth;
+	return Object.assign(auth, getServer(auth.server));
 }
 
 function SSHConnection(auth, options, isConnected) {
