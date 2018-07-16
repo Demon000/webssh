@@ -6,9 +6,7 @@ const Express = require('express');
 const Server = require('http').Server;
 const Session = require('express-session');
 const SocketIO = require('socket.io');
-const SSHWrapper = require('./LimitedSSHWrapper');
-const SSHSocket = SSHWrapper.SSHSocket;
-const SSHConnection = SSHWrapper.SSHConnection;
+const SSH = require('./LimitedSSHWrapper');
 
 const app = Express();
 const server = Server(app);
@@ -33,7 +31,7 @@ io.use((socket, next) => {
 });
 
 io.on('connect', socket => {
-    socket.on('ssh:connect', SSHSocket.bind(this, socket));
+    socket.on('ssh:connect', SSH.Socket.bind(this, socket));
 });
 
 app.route('/auth')
@@ -42,7 +40,7 @@ app.route('/auth')
 })
 .post((req, res) => {
     const auth = req.body;
-    SSHConnection(auth, {}, function(connected) {
+    SSH.Connection(auth, {}, function(connected) {
         this.close();
 
         if (connected) {

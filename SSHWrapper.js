@@ -22,7 +22,7 @@ function bindSocketToStream(socket, stream) {
     });
 }
 
-function SSHConnection(auth, options, isConnected) {
+function Connection(auth, options, isConnected) {
     const connection = new SSH(auth);
     const fn = isConnected.bind(connection);
 
@@ -33,7 +33,7 @@ function SSHConnection(auth, options, isConnected) {
     return connection;
 }
 
-function SSHSocket(socket, auth, options, isConnected) {
+function Socket(socket, auth, options, isConnected) {
     SSHConnection(auth, options, (connected, stream) => {
         if (connected) {
             bindSocketToStream(socket, stream);
@@ -52,6 +52,6 @@ function SSHSocket(socket, auth, options, isConnected) {
 }
 
 module.exports = {
-    SSHConnection,
-    SSHSocket
+    Connection,
+    Socket
 };

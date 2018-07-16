@@ -1,5 +1,5 @@
 const Config = require('./config');
-const SSHWrapper = require('./SSHWrapper');
+const SSH = require('./SSHWrapper');
 
 function getServer(name) {
 	return Config.servers[name] || {};
@@ -9,14 +9,14 @@ function fillAuth(auth) {
 	return Object.assign(auth, getServer(auth.server));
 }
 
-function SSHConnection(auth, options, isConnected) {
-	SSHWrapper.SSHConnection(fillAuth(auth), options, isConnected);
+function Connection(auth, options, isConnected) {
+	SSH.Connection(fillAuth(auth), options, isConnected);
 }
-function SSHSocket(socket, auth, options, isConnected) {
-	SSHWrapper.SSHSocket(socket, fillAuth(auth), options, isConnected);
+function Socket(socket, auth, options, isConnected) {
+	SSH.Socket(socket, fillAuth(auth), options, isConnected);
 }
 
 module.exports = {
-	SSHConnection,
-	SSHSocket
+	Connection,
+	Socket
 };
