@@ -95,3 +95,23 @@ button:disabled {
 .input-group input:focus {
     border-bottom: 2px solid rgba(86, 128, 233, 1);
 }
+
+#logo {
+    font-family: 'Nunito', sans-serif;
+    font-size: 64px;
+    font-weight: 600;
+}
+
+#logo .white {
+    color: #ffffff;
+}
+
+#connect {
+    border: 1px solid #5680e9;
+    border-radius: 18px;
+    transition: all 0.25s ease;
+}
+#connect:hover {
+    background: #5680e9;
+    color: #ffffff;
+}
