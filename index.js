@@ -26,19 +26,19 @@ const io = SocketIO(server, {
     serveClient: false
 });
 
-io.use((socket, next) => {
+io.use(function(socket, next) {
     session(socket.request, socket.request.res, next);
 });
 
-io.on('connect', socket => {
+io.on('connect', function(socket) {
     socket.on('ssh:connect', SSH.Socket.bind(this, socket));
 });
 
 app.route('/auth')
-.get((req, res) => {
+.get(function(req, res) {
     res.sendFile(path.join(__dirname, 'public/auth.html'));
 })
-.post((req, res) => {
+.post(function(req, res) {
     const auth = req.body;
     SSH.Connection(auth, {}, function(connected) {
         this.close();
@@ -53,7 +53,7 @@ app.route('/auth')
     });
 });
 
-app.get('/servers', (req, res) => {
+app.get('/servers', function(req, res) {
     res.json(Object.keys(Config.servers));
 });
 
