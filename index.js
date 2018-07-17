@@ -14,6 +14,8 @@ const server = Server(app);
 app.use(Express.static('public'));
 app.use(Express.json());
 
+app.set('view engine', 'ejs');
+
 const session = Session({
     resave: false,
     saveUninitialized: false,
@@ -35,7 +37,7 @@ io.on('connect', function(socket) {
 });
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, 'public/auth.html'));
+    res.render('index');
 });
 
 app.post('/auth', function(req, res) {
