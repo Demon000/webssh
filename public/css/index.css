@@ -6,7 +6,7 @@ html, body {
     padding: 0;
 
     font-family: 'Roboto', sans-serif;
-    color: #5680e9;
+    color: #ffffff;
 
     background: #242424;
 
@@ -67,6 +67,8 @@ button:disabled {
     padding-top: 8px;
     padding-bottom: 4px;
 
+    color: #5680e9;
+
     display: block;
 
     font-size: 12px;
@@ -116,8 +118,8 @@ button:disabled {
     font-weight: 600;
     text-align: center;
 }
-#logo .white {
-    color: #ffffff;
+#logo .color {
+    color: #5680e9;
 }
 
 #actions {
@@ -125,8 +127,11 @@ button:disabled {
 }
 
 #connect {
+    color: #5680e9;
+
     border: 1px solid #5680e9;
     border-radius: 18px;
+
     transition: all 0.25s ease;
 }
 #connect:hover {
