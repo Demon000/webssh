@@ -43,6 +43,14 @@
                     as
                     <span class="word"><%= auth.username %></span>.
                 </p>
+                <p class="info">
+                    Press the button bellow to open a new terminal!
+                </p>
+                <div id="actions" >
+                    <a id="terminal" href="/terminal" target="_blank">
+                        <% include terminal %>
+                    </a>
+                </div>
             <% } else { %>
                 <div class="input-group">
                     <label>Server</label>

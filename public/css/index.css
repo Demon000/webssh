@@ -176,6 +176,17 @@ button:disabled {
     fill: #86c232;
 }
 
+#terminal {
+    text-align: center;
+}
+#terminal svg {
+    width: 48px;
+    height: 48px;
+}
+#terminal path {
+    fill: #5680e9;
+}
+
 #notes {
     width: 100%;
 
