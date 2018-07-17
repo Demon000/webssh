@@ -111,6 +111,12 @@ button:disabled {
 
     padding: 16px;
 }
+#auth .info {
+    text-align: center;
+}
+#auth .info .word {
+    color: #5680e9;
+}
 
 #logo {
     font-family: 'Nunito', sans-serif;

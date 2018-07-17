@@ -37,6 +37,12 @@
                 <div id="check">
                     <% include check %>
                 </div>
+                <p class="info">
+                    You're logged in on
+                    <span class="word"><%= auth.server %></span>
+                    as
+                    <span class="word"><%= auth.username %></span>.
+                </p>
             <% } else { %>
                 <div class="input-group">
                     <label>Server</label>
