@@ -137,6 +137,10 @@ button:disabled {
     font-size: 64px;
     font-weight: 600;
     text-align: center;
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 #logo .color {
     color: #5680e9;
