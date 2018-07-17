@@ -37,7 +37,9 @@ io.on('connect', function(socket) {
 });
 
 app.get('/', function(req, res) {
-    res.render('index');
+    res.render('index', {
+        auth: req.session.auth
+    });
 });
 
 app.post('/auth', function(req, res) {
