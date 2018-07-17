@@ -166,7 +166,24 @@ button:disabled {
 
     display: inline-block;
 }
-
 #check path {
     fill: #86c232;
+}
+
+#notes {
+    text-align: center;
+}
+
+#progress-note, #error-note {
+    font-size: 12px;
+
+    display: none
+}
+
+#progress-note.visible, #error-note.visible {
+    display: block;
+}
+
+#error-note {
+    color: #fc4445;
 }
