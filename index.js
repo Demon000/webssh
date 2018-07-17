@@ -42,6 +42,10 @@ app.get('/', function(req, res) {
     });
 });
 
+app.get('/terminal', function(req, res) {
+    res.render('terminal');
+});
+
 app.post('/auth', function(req, res) {
     const auth = req.body;
     SSH.Connection(auth, {}, function(connected) {
