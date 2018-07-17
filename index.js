@@ -43,7 +43,11 @@ app.get('/', function(req, res) {
 });
 
 app.get('/terminal', function(req, res) {
-    res.render('terminal');
+    if (req.session.auth) {
+        res.render('terminal');
+    } else {
+        res.redirect('/');
+    }
 });
 
 app.post('/auth', function(req, res) {
