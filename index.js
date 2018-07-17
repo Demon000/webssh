@@ -44,7 +44,9 @@ app.get('/', function(req, res) {
 
 app.get('/terminal', function(req, res) {
     if (req.session.auth) {
-        res.render('terminal');
+        res.render('terminal', {
+            auth: req.session.auth
+        });
     } else {
         res.redirect('/');
     }
