@@ -121,6 +121,8 @@ button:disabled {
     max-width: 512px;
     width: 100%;
 
+    position: relative;
+
     padding: 16px;
 }
 #auth .info {
@@ -171,9 +173,13 @@ button:disabled {
 }
 
 #notes {
+    width: 100%;
+
+    position: absolute;
+    top: 100%;
+
     text-align: center;
 }
-
 #progress-note, #error-note {
     font-size: 12px;
 
