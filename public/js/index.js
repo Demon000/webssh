@@ -1,8 +1,3 @@
-var serverInput = document.querySelector('#server');
-var usernameInput = document.querySelector('#username');
-var passwordInput = document.querySelector('#password');
-var connectButton = document.querySelector('#connect');
-
 function setNotes(state) {
     var progressNote = document.querySelector('#progress-note');
     var errorNote  = document.querySelector('#error-note');
@@ -23,6 +18,10 @@ function setNotes(state) {
 }
 
 function doAuth() {
+    var serverInput = document.querySelector('#server');
+    var usernameInput = document.querySelector('#username');
+    var passwordInput = document.querySelector('#password');
+
     var auth = {
         server: serverInput.value,
         username: usernameInput.value,
@@ -45,4 +44,7 @@ function doAuth() {
     });
 }
 
-connectButton.addEventListener('click', doAuth);
+var connectButton = document.querySelector('#connect');
+if (connectButton) {
+    connectButton.addEventListener('click', doAuth);
+}
