@@ -133,3 +133,17 @@ button:disabled {
     background: #5680e9;
     color: #ffffff;
 }
+
+#check {
+    text-align: center;
+}
+#check svg {
+    width: 96px;
+    height: 96px;
+
+    display: inline-block;
+}
+
+#check path {
+    fill: #86c232;
+}

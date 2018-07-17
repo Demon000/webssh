@@ -33,22 +33,27 @@
             <div id="logo">
                 <span class="white">Web</span><span>SSH</span>
             </div>
-            <div class="input-group">
-                <label>Server</label>
-                <input id="server" type="text">
-            </div>
-            <div class="input-group">
-                <label>Username</label>
-                <input id="username" type="text">
-            </div>
-            <div class="input-group">
-                <label>Password</label>
-                <input id="password" type="password"><br>
-            </div>
-
-            <div id="actions">
-                <button id="connect">Connect</button>
-            </div>
+            <% if (auth) { %>
+                <div id="check">
+                    <% include check %>
+                </div>
+            <% } else { %>
+                <div class="input-group">
+                    <label>Server</label>
+                    <input id="server" type="text">
+                </div>
+                <div class="input-group">
+                    <label>Username</label>
+                    <input id="username" type="text">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input id="password" type="password"><br>
+                </div>
+                <div id="actions">
+                    <button id="connect">Connect</button>
+                </div>
+            <% }%>
         </div>
     </div>
     <script src="js/index.js"></script>
