@@ -95,14 +95,33 @@ button:disabled {
     border-bottom: 2px solid rgba(86, 128, 233, 1);
 }
 
+#content {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#auth {
+    max-width: 512px;
+    width: 100%;
+
+    padding: 16px;
+}
+
 #logo {
     font-family: 'Nunito', sans-serif;
     font-size: 64px;
     font-weight: 600;
+    text-align: center;
 }
-
 #logo .white {
     color: #ffffff;
+}
+
+#actions {
+    text-align: center;
 }
 
 #connect {
