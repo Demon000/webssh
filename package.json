@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "dep-linker": "^1.0.24",
+    "ejs": "^2.6.1",
     "eventemitter3": "^3.1.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
