@@ -35,16 +35,18 @@ function Connection(auth, options, isConnected) {
 
 function Socket(socket, auth, options, isConnected) {
     Connection(auth, options, function(connected, stream) {
+        const connection = this;
+
         if (connected) {
             bindSocketToStream(socket, stream);
         }
 
-        this.on('error', function() {
+        connection.on('error', function() {
             sendSocketError(socket, 'Connection error.');
         });
 
         socket.on('disconnect', function() {
-            this.close();
+            connection.close();
         });
 
         isConnected.call(this, connected);
