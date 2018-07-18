@@ -22,4 +22,8 @@
         }
     }
     document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    var terminalContainer = document.querySelector('#terminal');
+    var terminal = new SSHTerminal(null, terminalContainer);
+    terminal.emitter.on('activity', setActivity);
 })();
