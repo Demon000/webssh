@@ -32,6 +32,7 @@
     "socket.io-client": "^2.1.1",
     "ssh2-promise": "0.0.9",
     "superagent": "^3.8.3",
-    "xterm": "^3.5.1"
+    "xterm": "^3.5.1",
+    "xterm-webfont": "^1.1.0"
   }
 }
