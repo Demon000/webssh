@@ -40,7 +40,6 @@ function SSHTerminal(auth, container) {
 
     t.connect = function(auth) {
         socket.emit('ssh:connect', auth, options, function(success) {
-            t.attach(container);
             t.emitter.emit('connect', success);
         });
     };
@@ -51,6 +50,7 @@ function SSHTerminal(auth, container) {
 
     socket.on('connect', function() {
         t.connect(auth);
+        t.attach(container);
     });
 
     xterm.on('data', function(data) {
