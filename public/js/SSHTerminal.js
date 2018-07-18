@@ -14,18 +14,23 @@ function SSHTerminal(auth, container) {
 
     t.emitter = new EventEmitter();
 
+    function fit() {
+        var boundingRect = container.getBoundingClientRect();
+        var rows = Math.floor(boundingRect.width / xterm._core.renderer.dimensions.actualCellWidth);
+        var cols = Math.floor(boundingRect.height / xterm._core.renderer.dimensions.actualCellHeight);
+        xterm.resize(rows, cols);
+    }
+
     function resize() {
-        xterm.fit();
+        fit();
         socket.emit('ssh:size', xterm.rows, xterm.cols);
         t.emitter.emit('resize');
     }
 
     t.attach = function(container) {
         xterm.open(container);
-        setTimeout(function() {
-            resize();
-            t.emitter.emit('attach');
-        }, 1000);
+        resize();
+        t.emitter.emit('attach');
     };
 
     t.destroy = function() {
