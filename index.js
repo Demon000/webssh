@@ -33,7 +33,13 @@ io.use(function(socket, next) {
 });
 
 io.on('connect', function(socket) {
-    socket.on('ssh:connect', SSH.Socket.bind(this, socket));
+    socket.on('ssh:connect', function(auth, options, isConnected) {
+        if (!auth) {
+            auth = socket.request.session.auth;
+        }
+
+        SSH.Socket(socket, auth, options, isConnected);
+    });
 });
 
 app.get('/', function(req, res) {
