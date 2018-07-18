@@ -24,10 +24,14 @@
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     var terminalContainer = document.querySelector('#terminal');
+    var loadingContainer = document.querySelector('#loading');
     var terminal = new SSHTerminal(null, terminalContainer);
     terminal.setOption('theme', {
         background: '#242424'
     });
 
     terminal.emitter.on('activity', setActivity);
+    terminal.emitter.on('attach', function() {
+        loadingContainer.classList.add('finished');
+    });
 })();
