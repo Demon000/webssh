@@ -1,3 +1,5 @@
+Terminal.applyAddon(TerminalFontLoader);
+
 function SSHTerminal(auth, container) {
     var t = this;
 
@@ -28,11 +30,12 @@ function SSHTerminal(auth, container) {
     }
 
     t.attach = function(container) {
-        xterm.open(container);
-        setTimeout(function() {
+        xterm
+        .loadWebfontAndOpen(container)
+        .then(function() {
             resize();
             t.emitter.emit('attach');
-        }, 1000);
+        });
     };
 
     t.destroy = function() {
