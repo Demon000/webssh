@@ -1,4 +1,5 @@
 Terminal.applyAddon(TerminalFontLoader);
+Terminal.applyAddon(fit);
 
 function SSHTerminal(auth, container) {
     var t = this;
@@ -16,15 +17,8 @@ function SSHTerminal(auth, container) {
 
     t.emitter = new EventEmitter();
 
-    function fit() {
-        var boundingRect = container.getBoundingClientRect();
-        var rows = Math.floor(boundingRect.width / xterm._core.renderer.dimensions.actualCellWidth);
-        var cols = Math.floor(boundingRect.height / xterm._core.renderer.dimensions.actualCellHeight);
-        xterm.resize(rows, cols);
-    }
-
     function resize() {
-        fit();
+        xterm.fit();
         socket.emit('ssh:size', xterm.rows, xterm.cols);
         t.emitter.emit('resize');
     }
