@@ -1,6 +1,6 @@
 Terminal.applyAddon(fit);
 
-function SSHTerminal(auth) {
+function SSHTerminal(auth, container) {
     var t = this;
 
     var socket = io();
@@ -21,12 +21,6 @@ function SSHTerminal(auth) {
         socket.emit('ssh:size', xterm.rows, xterm.cols);
         t.emitter.emit('resize');
     }
-
-    t.attach = function(element) {
-        xterm.open(element);
-        resize();
-        t.emitter.emit('attach');
-    };
 
     t.destroy = function() {
         xterm.dispose();
@@ -58,4 +52,7 @@ function SSHTerminal(auth) {
     });
 
     window.addEventListener('resize', resize);
+
+    xterm.open(container);
+    resize();
 }
