@@ -22,6 +22,11 @@ function SSHTerminal(auth, container) {
         t.emitter.emit('resize');
     }
 
+    t.attach = function(container) {
+        xterm.open(container);
+        resize();
+    };
+
     t.destroy = function() {
         xterm.dispose();
         socket.disconnect();
@@ -30,6 +35,7 @@ function SSHTerminal(auth, container) {
 
     t.connect = function(auth) {
         socket.emit('ssh:connect', auth, options, function(success) {
+            t.attach(container);
             t.emitter.emit('connect', success);
         });
     };
@@ -56,7 +62,4 @@ function SSHTerminal(auth, container) {
     });
 
     window.addEventListener('resize', resize);
-
-    xterm.open(container);
-    resize();
 }
