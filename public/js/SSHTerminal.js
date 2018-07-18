@@ -24,7 +24,7 @@ function SSHTerminal(auth, container) {
 
     t.attach = function(container) {
         xterm.open(container);
-        resize();
+        setTimeout(resize, 1000);
     };
 
     t.destroy = function() {
