@@ -22,8 +22,4 @@
         }
     }
     document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    setTimeout(function() {
-        setActivity(true);
-    }, 1000);
 })();
