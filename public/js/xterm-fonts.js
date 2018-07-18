@@ -10,12 +10,10 @@
             return regular.constructor.all([regular, bold])
                 .then(function() {
                     xterm.open(element);
-                    console.log('loaded')
                     return xterm;
                 })
                 .catch(function() {
                     xterm.setOption('fontFamily', 'Courier');
-                    console.log('failed to load')
                     xterm.open(element);
                     return xterm;
                 });
