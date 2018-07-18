@@ -38,7 +38,12 @@ io.on('connect', function(socket) {
             auth = socket.request.session.auth;
         }
 
-        SSH.Socket(socket, auth, options, isConnected);
+        SSH.Socket(socket, auth, options, function(connected) {
+            /*
+             * Keep Socket.IO context.
+             */
+            isConnected(connected);
+        });
     });
 });
 
