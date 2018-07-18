@@ -4,7 +4,7 @@ function SSHTerminal(auth, container) {
     var socket = io();
 
     var xterm = new Terminal({
-        fontFamily: '"Roboto Mono", monospace',
+        fontFamily: 'Roboto Mono',
         fontSize: 14
     });
 
