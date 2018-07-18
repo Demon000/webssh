@@ -34,7 +34,7 @@ function Connection(auth, options, isConnected) {
 }
 
 function Socket(socket, auth, options, isConnected) {
-    Connection(auth, options, (connected, stream) => {
+    Connection(auth, options, function(connected, stream) {
         if (connected) {
             bindSocketToStream(socket, stream);
         }
