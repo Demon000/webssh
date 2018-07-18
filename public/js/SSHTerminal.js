@@ -1,12 +1,10 @@
-Terminal.applyAddon(fit);
-
 function SSHTerminal(auth, container) {
     var t = this;
 
     var socket = io();
 
     var xterm = new Terminal({
-        fontFamily: '"Roboto Mono"',
+        fontFamily: '"Roboto Mono", monospace',
         fontSize: 14
     });
 
