@@ -5,6 +5,7 @@ const Config = require('./config');
 const Express = require('express');
 const Server = require('http').Server;
 const Session = require('express-session');
+const FileStore = require('session-file-store')(Session);
 const SocketIO = require('socket.io');
 const SSH = require('./SSHWrapper');
 
@@ -17,6 +18,9 @@ app.use(Express.json());
 app.set('view engine', 'ejs');
 
 const session = Session({
+    store: new FileStore({
+        ttl: 86400
+    }),
     resave: false,
     saveUninitialized: false,
     secret: Config.secret,
