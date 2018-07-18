@@ -6,7 +6,7 @@ const Express = require('express');
 const Server = require('http').Server;
 const Session = require('express-session');
 const SocketIO = require('socket.io');
-const SSH = require('./LimitedSSHWrapper');
+const SSH = require('./SSHWrapper');
 
 const app = Express();
 const server = Server(app);
@@ -52,8 +52,16 @@ app.get('/terminal', function(req, res) {
     }
 });
 
+function getServer(name) {
+    return Config.servers[name] || {};
+}
+
+function fillAuth(auth) {
+    return Object.assign(auth, getServer(auth.server));
+}
+
 app.post('/auth', function(req, res) {
-    const auth = req.body;
+    const auth = fillAuth(req.body);
     SSH.Connection(auth, {}, function(connected) {
         this.close();
 
