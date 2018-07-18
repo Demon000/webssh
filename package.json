@@ -28,6 +28,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "morgan": "^1.9.0",
+    "session-file-store": "^1.2.0",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
     "ssh2-promise": "0.0.9",
