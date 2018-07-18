@@ -50,7 +50,7 @@ function SSHTerminal(auth) {
 
     socket.on('ssh:data', function(data) {
         xterm.write(data);
-        t.emitter.emit('activity');
+        t.emitter.emit('activity', true);
     });
 
     socket.on('ssh:error', function(message) {
