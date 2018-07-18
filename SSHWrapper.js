@@ -34,7 +34,7 @@ function Connection(auth, options, isConnected) {
 }
 
 function Socket(socket, auth, options, isConnected) {
-    SSHConnection(auth, options, (connected, stream) => {
+    Connection(auth, options, (connected, stream) => {
         if (connected) {
             bindSocketToStream(socket, stream);
         }
