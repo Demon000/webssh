@@ -14,11 +14,11 @@ function bindSocketToStream(socket, stream) {
     stream.stderr.on('data', dataFn);
 
     socket.on('ssh:data', function(data) {
-        stream.write(data)
+        stream.write(data);
     });
 
     socket.on('ssh:size', function(rows, cols) {
-        stream.setWindow(rows, cols)
+        stream.setWindow(rows, cols);
     });
 }
 
