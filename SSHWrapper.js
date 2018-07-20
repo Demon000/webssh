@@ -1,4 +1,4 @@
-const SSH = require('ssh2-promise');
+const SSH = require('ssh2').Client;
 
 function sendSocketError(socket, message) {
     socket.emit('ssh:error', message);
@@ -22,34 +22,45 @@ function bindSocketToStream(socket, stream) {
     });
 }
 
-function Connection(auth, options, isConnected) {
-    const connection = new SSH(auth);
-    const fn = isConnected.bind(connection);
+function Connection(auth, options, streamFn) {
+    const connection = new SSH();
 
-    connection.shell(options)
-    .then(stream => fn(true, stream))
-    .catch(err => fn(false, null));
+    connection.on('ready', function() {
+        connection
+        .shell(options, function(err, stream) {
+            streamFn.call(connection, stream);
 
-    return connection;
+            if (!stream) {
+                return;
+            }
+
+            stream.on('close', function() {
+                connection.end();
+            });
+
+        });
+    }).connect(auth);
 }
 
-function Socket(socket, auth, options, isConnected) {
-    Connection(auth, options, function(connected, stream) {
+function Socket(socket, auth, options, streamFn) {
+    Connection(auth, options, function(stream) {
         const connection = this;
 
-        if (connected) {
-            bindSocketToStream(socket, stream);
+        streamFn.call(connection, stream);
+
+        if (!stream) {
+            return;
         }
+
+        bindSocketToStream(socket, stream);
 
         connection.on('error', function() {
             sendSocketError(socket, 'Connection error.');
         });
 
         socket.on('disconnect', function() {
-            connection.close();
+            connection.end();
         });
-
-        isConnected.call(this, connected);
     });
 }
 

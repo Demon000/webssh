@@ -38,10 +38,8 @@ io.on('connect', function(socket) {
             auth = socket.request.session.auth;
         }
 
-        SSH.Socket(socket, auth, options, function(connected) {
-            /*
-             * Keep Socket.IO context.
-             */
+        SSH.Socket(socket, auth, options, function(stream) {
+            const connected = stream ? true : false;
             isConnected(connected);
         });
     });
@@ -73,8 +71,11 @@ function fillAuth(auth) {
 
 app.post('/auth', function(req, res) {
     const auth = fillAuth(req.body);
-    SSH.Connection(auth, {}, function(connected) {
-        this.close();
+    SSH.Connection(auth, {}, function(stream) {
+        const connection = this;
+        const connected = stream ? true : false;
+
+        connection.end();
 
         if (connected) {
             req.session.auth = auth;
