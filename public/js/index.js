@@ -1,13 +1,15 @@
 (function() {
     var usePrivateKeyInput = document.querySelector('#use-private-key');
 
+    function usePrivatekey() {
+        return usePrivateKeyInput.checked;
+    }
+
     function updateAvailableFields() {
-        var usePrivateKey = usePrivateKeyInput.checked;
-        console.log(usePrivateKey);
         var passwordFields = document.querySelector('#password-fields');
         var privateKeyFields = document.querySelector('#private-key-fields');
 
-        if (usePrivateKey) {
+        if (usePrivateKey()) {
             passwordFields.classList.remove('visible');
             privateKeyFields.classList.add('visible');
         } else {
