@@ -44,12 +44,20 @@
         var serverInput = document.querySelector('#server');
         var usernameInput = document.querySelector('#username');
         var passwordInput = document.querySelector('#password');
+        var passphraseInput = document.querySelector('#passphrase');
+        var privateKeyInput = document.querySelector('#private-key');
 
         var auth = {
             server: serverInput.value,
-            username: usernameInput.value,
-            password: passwordInput.value
+            username: usernameInput.value
         };
+
+        if (usePrivateKey()) {
+            auth.passphrase = passphraseInput.value;
+            auth.privateKey = privateKeyInput.value;
+        } else {
+            auth.password = passwordInput.value;
+        }
 
         setNotes('progress');
 
