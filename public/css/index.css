@@ -12,8 +12,26 @@ html, body {
     border-bottom: 1px solid rgba(86, 128, 233, 0.7);
 }
 
+.input-group.has-switch > * {
+    display: inline-block;
+
+    vertical-align: top;
+}
+
+.input-group.has-switch > .switch {
+    float: right;
+}
+
 .input-group input:focus {
     border-bottom: 2px solid rgba(86, 128, 233, 1);
+}
+
+.switch input:checked + label:before {
+    background: rgba(86, 128, 233, 0.5);
+}
+
+.switch input:checked + label:after {
+    background: rgba(86, 128, 233, 1);
 }
 
 #content {
