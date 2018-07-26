@@ -57,9 +57,21 @@
                         <label for="use-private-key"></label>
                     </div>
                 </div>
-                <div class="input-group">
-                    <label>Password</label>
-                    <input id="password" type="password"><br>
+                <div id="password-fields">
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input id="password" type="password"><br>
+                    </div>
+                </div>
+                <div id="private-key-fields">
+                    <div class="input-group">
+                        <label>Passphrase (optional)</label>
+                        <input id="passphrase" type="password"><br>
+                    </div>
+                    <div class="input-group">
+                        <label>Private key</label>
+                        <textarea id="private-key"></textarea><br>
+                    </div>
                 </div>
                 <div id="actions">
                     <button id="connect">Connect</button>

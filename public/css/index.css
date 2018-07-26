@@ -8,8 +8,12 @@ html, body {
     color: #5680e9;
 }
 
-.input-group input {
+.input-group input, .input-group textarea {
     border-bottom: 1px solid rgba(86, 128, 233, 0.7);
+}
+
+.input-group input:focus, .input-group textarea:focus {
+    border-bottom: 2px solid rgba(86, 128, 233, 1);
 }
 
 .input-group.has-switch > * {
@@ -20,10 +24,6 @@ html, body {
 
 .input-group.has-switch > .switch {
     float: right;
-}
-
-.input-group input:focus {
-    border-bottom: 2px solid rgba(86, 128, 233, 1);
 }
 
 .switch input:checked + label:before {
