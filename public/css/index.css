@@ -134,3 +134,11 @@ html, body {
 #error-note {
     color: #fc4445;
 }
+
+#password-fields, #private-key-fields {
+    display: none;
+}
+
+#password-fields.visible, #private-key-fields.visible {
+    display: block;
+}

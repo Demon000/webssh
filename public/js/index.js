@@ -1,4 +1,24 @@
 (function() {
+    var usePrivateKeyInput = document.querySelector('#use-private-key');
+
+    function updateAvailableFields() {
+        var usePrivateKey = usePrivateKeyInput.checked;
+        console.log(usePrivateKey);
+        var passwordFields = document.querySelector('#password-fields');
+        var privateKeyFields = document.querySelector('#private-key-fields');
+
+        if (usePrivateKey) {
+            passwordFields.classList.remove('visible');
+            privateKeyFields.classList.add('visible');
+        } else {
+            passwordFields.classList.add('visible');
+            privateKeyFields.classList.remove('visible');
+        }
+    }
+
+    usePrivateKeyInput.addEventListener('change', updateAvailableFields);
+    updateAvailableFields();
+
     function setNotes(state) {
         var progressNote = document.querySelector('#progress-note');
         var errorNote  = document.querySelector('#error-note');
