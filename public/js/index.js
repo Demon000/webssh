@@ -1,7 +1,7 @@
 (function() {
     var usePrivateKeyInput = document.querySelector('#use-private-key');
 
-    function usePrivatekey() {
+    function usePrivateKey() {
         return usePrivateKeyInput.checked;
     }
 
