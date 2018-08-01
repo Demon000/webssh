@@ -20,7 +20,10 @@ const session = Session({
     resave: false,
     saveUninitialized: false,
     secret: Config.secret,
-    unset: 'destroy'
+    unset: 'destroy',
+    cookie: {
+        maxAge: Config.maxAge
+    }
 });
 app.use(session);
 
