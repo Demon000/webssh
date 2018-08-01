@@ -24,11 +24,13 @@ function bindSocketToStream(socket, stream) {
 
 function Connection(auth, options, streamFn) {
     const connection = new SSH();
+    const fn = streamFn.bind(connection);
 
-    connection.on('ready', function() {
+    connection
+    .on('ready', function() {
         connection
         .shell(options, function(err, stream) {
-            streamFn.call(connection, stream);
+            fn(stream);
 
             if (!stream) {
                 return;
@@ -39,7 +41,11 @@ function Connection(auth, options, streamFn) {
             });
 
         });
-    }).connect(auth);
+    })
+    .on('error', function() {
+        fn(null);
+    })
+    .connect(auth);
 }
 
 function Socket(socket, auth, options, streamFn) {
