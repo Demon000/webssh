@@ -87,6 +87,13 @@ app.post('/auth', function(req, res) {
     });
 });
 
+app.get('/deauth', function(req, res) {
+    if (req.session.auth) {
+        req.session.destroy();
+        res.redirect('/');
+    }
+});
+
 app.get('/servers', function(req, res) {
     res.json(Object.keys(Config.servers));
 });
