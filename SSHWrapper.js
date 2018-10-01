@@ -82,7 +82,6 @@ function Terminal(socket, auth, options, streamFn) {
 }
 
 module.exports = {
-    Connection,
     Terminal,
     checkAuth,
 };
