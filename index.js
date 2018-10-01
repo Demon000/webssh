@@ -29,8 +29,10 @@ io.use(function(socket, next) {
 
 io.on('connect', function(socket) {
     socket.on('main:connect', function(app, auth, options, isConnected) {
+        auth = auth || socket.request.session.auth;
         if (!auth) {
-            auth = socket.request.session.auth;
+            isConnected(false);
+            return;
         }
 
         SSH.apps[app](socket, auth, options, function(stream) {

@@ -10,7 +10,7 @@ body {
     height: 100%;
 }
 
-#loading {
+#status {
     width: 100%;
     height: 100%;
 
@@ -26,6 +26,6 @@ body {
 
     z-index: 10000;
 }
-#loading.finished {
+#status.connected {
     display: none;
 }
