@@ -1,17 +1,8 @@
 const SSH = require('ssh2').Client;
 
-function sendSocketError(socket, message) {
-    socket.emit('Terminal:error', message);
-}
-
-function sendSocketData(socket, data) {
-    socket.emit('Terminal:data', data.toString('utf-8'));
-}
-
 function bindSocketToStream(socket, stream) {
-    const dataFn = sendSocketData.bind(null, socket);
-    stream.on('data', dataFn);
-    stream.stderr.on('data', dataFn);
+    stream.on('data', socket.emitData);
+    stream.stderr.on('data', socket.emitData);
 
     socket.on('Terminal:data', function(data) {
         stream.write(data);
@@ -60,6 +51,14 @@ function checkAuth(auth, connectedFn) {
 }
 
 function Terminal(socket, auth, options, streamFn) {
+    socket.emitData = function(data) {
+        socket.emit('Terminal:data', data.toString('utf-8'));
+    };
+
+    socket.emitError = function(error) {
+        socket.emit('Terminal:error', error);
+    };
+
     Connection(auth, options, function(stream) {
         const connection = this;
 
@@ -72,7 +71,7 @@ function Terminal(socket, auth, options, streamFn) {
         bindSocketToStream(socket, stream);
 
         connection.on('error', function() {
-            sendSocketError(socket, 'Connection error.');
+            socket.emitError('Connection error.');
         });
 
         socket.on('disconnect', function() {
