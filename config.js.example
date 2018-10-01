@@ -9,6 +9,7 @@ module.exports = {
             maxAge: 86400000,
         }
     },
+    transports: ['websocket'],
     servers: {
         "banana": {
             host: "example.com",
