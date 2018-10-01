@@ -1,11 +1,11 @@
 const SSH = require('ssh2').Client;
 
 function sendSocketError(socket, message) {
-    socket.emit('ssh:error', message);
+    socket.emit('Terminal:error', message);
 }
 
 function sendSocketData(socket, data) {
-    socket.emit('ssh:data', data.toString('utf-8'));
+    socket.emit('Terminal:data', data.toString('utf-8'));
 }
 
 function bindSocketToStream(socket, stream) {
@@ -13,11 +13,11 @@ function bindSocketToStream(socket, stream) {
     stream.on('data', dataFn);
     stream.stderr.on('data', dataFn);
 
-    socket.on('ssh:data', function(data) {
+    socket.on('Terminal:data', function(data) {
         stream.write(data);
     });
 
-    socket.on('ssh:size', function(rows, cols) {
+    socket.on('Terminal:size', function(rows, cols) {
         stream.setWindow(rows, cols);
     });
 }

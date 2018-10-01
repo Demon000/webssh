@@ -19,7 +19,7 @@ function SSHTerminal(auth, container) {
 
     function resize() {
         xterm.fit();
-        socket.emit('ssh:size', xterm.rows, xterm.cols);
+        socket.emit('Terminal:size', xterm.rows, xterm.cols);
         t.emitter.emit('resize');
     }
 
@@ -54,15 +54,15 @@ function SSHTerminal(auth, container) {
     });
 
     xterm.on('data', function(data) {
-        socket.emit('ssh:data', data);
+        socket.emit('Terminal:data', data);
     });
 
-    socket.on('ssh:data', function(data) {
+    socket.on('Terminal:data', function(data) {
         xterm.write(data);
         t.emitter.emit('activity', true);
     });
 
-    socket.on('ssh:error', function(message) {
+    socket.on('Terminal:error', function(message) {
         t.emitter.emit('error', message);
     });
 
