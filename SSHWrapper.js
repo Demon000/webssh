@@ -48,7 +48,7 @@ function Connection(auth, options, streamFn) {
     .connect(auth);
 }
 
-function CheckLogin(socket, auth, connectedFn) {
+function CheckAuth(socket, auth, connectedFn) {
     SSH.Connection(auth, {}, function(stream) {
         const connection = this;
         const connected = stream ? true : false;
@@ -83,6 +83,6 @@ function Socket(socket, auth, options, streamFn) {
 
 module.exports = {
     Connection,
-    CheckLogin,
+    CheckAuth,
     Socket
 };
