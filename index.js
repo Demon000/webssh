@@ -16,15 +16,7 @@ app.use(Express.json());
 
 app.set('view engine', 'ejs');
 
-const session = Session({
-    resave: false,
-    saveUninitialized: false,
-    secret: Config.secret,
-    unset: 'destroy',
-    cookie: {
-        maxAge: Config.maxAge
-    }
-});
+const session = Session(Config.session);
 app.use(session);
 
 const io = SocketIO(server, {

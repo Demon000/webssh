@@ -1,11 +1,18 @@
 module.exports = {
-	port: 8080,
-	secret: "your secret",
-	maxAge: 86400000,
-	servers: {
-		"banana": {
-			host: "example.com",
-			port: 22
-		}
-	}
+    port: 8080,
+    session: {
+        resave: false,
+        saveUninitialized: false,
+        secret: "your secret",
+        unset: "destroy",
+        cookie: {
+            maxAge: 86400000,
+        }
+    },
+    servers: {
+        "banana": {
+            host: "example.com",
+            port: 22
+        }
+    }
 };
