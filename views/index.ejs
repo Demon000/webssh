@@ -35,11 +35,14 @@
                     <a href="/deauth" class="word">Logout</span>?
                 </p>
                 <p class="info">
-                    Press the button bellow to open a new terminal!
+                    Press the buttons bellow to open a terminal or a file explorer!
                 </p>
                 <div id="actions" >
                     <a id="terminal" class="action-icon" href="/terminal" target="_blank">
                         <% include terminal-icon %>
+                    </a>
+                    <a id="file-explorer" class="action-icon" href="/file-explorer" target="_blank">
+                        <% include file-explorer-icon %>
                     </a>
                 </div>
             <% } else { %>

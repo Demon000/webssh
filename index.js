@@ -59,6 +59,12 @@ app.get('/terminal', isAuthenticated, function(req, res) {
     });
 });
 
+app.get('/file-explorer', isAuthenticated, function(req, res) {
+    res.render('file-explorer', {
+        auth: req.session.auth
+    });
+});
+
 function getServer(name) {
     return Config.servers[name] || {};
 }
