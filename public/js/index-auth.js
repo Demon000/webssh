@@ -1,7 +1,7 @@
 (function() {
     function doLogout() {
-        var sshAuth = new SSHAuth();
-        sshAuth.deauth();
+        var socket = io();
+        socket.emit('main:deauth');
         location.reload();
     }
 

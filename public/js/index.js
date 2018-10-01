@@ -61,8 +61,8 @@
 
         setNotes('progress');
 
-        var sshAuth = new SSHAuth();
-        sshAuth.auth(auth, function(success) {
+        var socket = io();
+        socket.emit('main:auth', auth, function(success) {
             if (success) {
                 location.reload();
                 setNotes();
