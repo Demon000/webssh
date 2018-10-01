@@ -49,7 +49,7 @@ function Connection(auth, options, streamFn) {
 }
 
 function checkAuth(auth, connectedFn) {
-    SSH.Connection(auth, {}, function(stream) {
+    Connection(auth, {}, function(stream) {
         const connection = this;
         const connected = stream ? true : false;
 
