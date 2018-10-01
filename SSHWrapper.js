@@ -48,7 +48,7 @@ function Connection(auth, options, streamFn) {
     .connect(auth);
 }
 
-function checkAuth(socket, auth, connectedFn) {
+function checkAuth(auth, connectedFn) {
     SSH.Connection(auth, {}, function(stream) {
         const connection = this;
         const connected = stream ? true : false;
