@@ -1,8 +1,8 @@
 module.exports = {
     port: 8080,
     session: {
-        resave: false,
-        saveUninitialized: false,
+        resave: true,
+        saveUninitialized: true,
         secret: "your secret",
         unset: "destroy",
         cookie: {
