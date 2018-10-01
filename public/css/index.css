@@ -101,14 +101,14 @@ html, body {
     fill: #86c232;
 }
 
-#terminal {
+.action-icon {
     text-align: center;
 }
-#terminal svg {
+.action-icon svg {
     width: 48px;
     height: 48px;
 }
-#terminal path {
+.action-icon path {
     fill: #5680e9;
 }
 
