@@ -1,18 +1,5 @@
 const SSH = require('ssh2').Client;
 
-function bindSocketToStream(socket, stream) {
-    stream.on('data', socket.emitData);
-    stream.stderr.on('data', socket.emitData);
-
-    socket.on('Terminal:data', function(data) {
-        stream.write(data);
-    });
-
-    socket.on('Terminal:size', function(rows, cols) {
-        stream.setWindow(rows, cols);
-    });
-}
-
 function Connection(auth, options, streamFn) {
     const connection = new SSH();
     const fn = streamFn.bind(connection);
@@ -59,6 +46,14 @@ function Terminal(socket, auth, options, streamFn) {
         socket.emit('Terminal:error', error);
     };
 
+    socket.onData = function(dataFn) {
+        socket.on('Terminal:data', dataFn);
+    };
+
+    socket.onSize = function(sizeFn) {
+        socket.on('Terminal:size', sizeFn);
+    };
+
     Connection(auth, options, function(stream) {
         const connection = this;
 
@@ -68,7 +63,16 @@ function Terminal(socket, auth, options, streamFn) {
             return;
         }
 
-        bindSocketToStream(socket, stream);
+        stream.on('data', socket.emitData);
+        stream.stderr.on('data', socket.emitData);
+
+        socket.onData(function(data) {
+            stream.write(data);
+        });
+
+        socket.onSize(function(rows, cols) {
+            stream.setWindow(rows, cols);
+        });
 
         connection.on('error', function() {
             socket.emitError('Connection error.');
