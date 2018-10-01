@@ -77,12 +77,7 @@ function fillAuth(auth) {
 
 app.post('/auth', function(req, res) {
     const auth = fillAuth(req.body);
-    SSH.Connection(auth, {}, function(stream) {
-        const connection = this;
-        const connected = stream ? true : false;
-
-        connection.end();
-
+    SSH.CheckLogin(auth, function(connected) {
         if (connected) {
             req.session.auth = auth;
         }
