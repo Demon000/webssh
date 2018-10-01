@@ -36,12 +36,12 @@ io.use(function(socket, next) {
 });
 
 io.on('connect', function(socket) {
-    socket.on('ssh:connect', function(auth, options, isConnected) {
+    socket.on('main:connect', function(to, auth, options, isConnected) {
         if (!auth) {
             auth = socket.request.session.auth;
         }
 
-        SSH.Socket(socket, auth, options, function(stream) {
+        SSH[to](socket, auth, options, function(stream) {
             const connected = stream ? true : false;
             isConnected(connected);
         });
