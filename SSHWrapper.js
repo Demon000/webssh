@@ -59,7 +59,7 @@ function checkAuth(auth, connectedFn) {
     });
 }
 
-function Socket(socket, auth, options, streamFn) {
+function Terminal(socket, auth, options, streamFn) {
     Connection(auth, options, function(stream) {
         const connection = this;
 
@@ -83,6 +83,6 @@ function Socket(socket, auth, options, streamFn) {
 
 module.exports = {
     Connection,
-    Socket,
+    Terminal,
     checkAuth,
 };

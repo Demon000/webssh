@@ -39,7 +39,7 @@ function SSHTerminal(auth, container) {
     };
 
     t.connect = function(auth) {
-        socket.emit('main:connect', 'Socket', auth, options, function(success) {
+        socket.emit('main:connect', 'Terminal', auth, options, function(success) {
             t.emitter.emit('connect', success);
             t.attach(container);
         });
