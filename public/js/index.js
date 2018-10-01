@@ -61,12 +61,9 @@
 
         setNotes('progress');
 
-        superagent
-        .post('/auth')
-        .send(auth)
-        .then(function(response) {
-            var data = response.body;
-            if (data.success) {
+        var sshAuth = new SSHAuth();
+        sshAuth.auth(auth, function(success) {
+            if (success) {
                 location.reload();
                 setNotes();
             } else {

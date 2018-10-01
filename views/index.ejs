@@ -14,8 +14,8 @@
     <!-- Nunito -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:600" rel="stylesheet">
 
-    <!-- Superagent -->
-    <script src="/external/superagent/superagent.js"></script>
+    <!-- Socket.IO -->
+    <script src="/external/socket.io-client/dist/socket.io.js"></script>
 </head>
 <body>
     <div id="content">
@@ -32,7 +32,7 @@
                     <span class="word"><%= auth.server %></span>
                     as
                     <span class="word"><%= auth.username %></span>.
-                    <a href="/deauth" class="word">Logout</span>?
+                    <a id="logout" class="word">Logout</span>?
                 </p>
                 <p class="info">
                     Press the buttons bellow to open a terminal or a file explorer!
@@ -87,7 +87,11 @@
             <% } %>
         </div>
     </div>
-    <% if (!auth) { %>
+
+    <script src="/js/SSHAuth.js"></script>
+    <% if (auth) { %>
+        <script src="/js/index-auth.js"></script>
+    <% } else { %>
         <script src="/js/index.js"></script>
     <% } %>
 </body>

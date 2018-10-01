@@ -1,10 +1,11 @@
 Terminal.applyAddon(TerminalFontLoader);
 Terminal.applyAddon(fit);
 
-function SSHTerminal(auth, container) {
+function SSHTerminal(container) {
     var t = this;
 
     var socket = io();
+    var firstConnect = true;
 
     var xterm = new Terminal({
         fontFamily: 'Roboto Mono',
@@ -38,14 +39,13 @@ function SSHTerminal(auth, container) {
         t.emitter.emit('destroy');
     };
 
-    t.connect = function(auth) {
-        socket.emit('main:connect', 'Terminal', auth, options, function(success) {
-            if (!success) {
-                return;
+    t.init = function() {
+        socket.emit('main:init', 'Terminal', options, function(success) {
+            if (success) {
+                t.attach(container);
             }
 
-            t.attach(container);
-            t.emitter.emit('connect', success);
+            t.emitter.emit('init', success);
         });
     };
 
@@ -54,7 +54,12 @@ function SSHTerminal(auth, container) {
     };
 
     socket.on('connect', function() {
-        t.connect(auth);
+        if (firstConnect) {
+            t.init();
+            firstConnect = false;
+        }
+
+        t.emitter.emit('connect');
     });
 
     socket.on('disconnect', function() {

@@ -27,18 +27,46 @@ io.use(function(socket, next) {
     session(socket.request, socket.request.res, next);
 });
 
+function getServer(name) {
+    return Config.servers[name] || {};
+}
+
+function fillAuth(auth) {
+    return Object.assign(auth, getServer(auth.server));
+}
+
 io.on('connect', function(socket) {
-    socket.on('main:connect', function(app, auth, options, isConnected) {
-        auth = auth || socket.request.session.auth;
-        if (!auth) {
-            isConnected(false);
-            return;
+    socket.on('main:auth', function(auth, successFn) {
+        const session = socket.request.session;
+
+        fillAuth(auth);
+
+        SSH.checkAuth(auth, function(success) {
+            if (success) {
+                session.auth = auth;
+                session.save();
+            }
+
+            successFn(success);
+        });
+    });
+
+    socket.on('main:init', function(app, options, successFn) {
+        const session = socket.request.session;
+
+        if (!session.auth) {
+            successFn(false);
         }
 
-        SSH.apps[app](socket, auth, options, function(stream) {
-            const connected = stream ? true : false;
-            isConnected(connected);
+        SSH.apps[app](socket, session.auth, options, function(stream) {
+            const success = stream ? true : false;
+            successFn(success);
         });
+    });
+
+    socket.on('main:deauth', function() {
+        const session = socket.request.session;
+        session.destroy();
     });
 });
 
@@ -65,34 +93,6 @@ app.get('/file-explorer', isAuthenticated, function(req, res) {
     res.render('file-explorer', {
         auth: req.session.auth
     });
-});
-
-function getServer(name) {
-    return Config.servers[name] || {};
-}
-
-function fillAuth(auth) {
-    return Object.assign(auth, getServer(auth.server));
-}
-
-app.post('/auth', function(req, res) {
-    const auth = fillAuth(req.body);
-    SSH.checkAuth(auth, function(connected) {
-        if (connected) {
-            req.session.auth = auth;
-        }
-
-        res.json({
-            success: connected
-        });
-    });
-});
-
-app.get('/deauth', function(req, res) {
-    if (req.session.auth) {
-        req.session.destroy();
-        res.redirect('/');
-    }
 });
 
 app.get('/servers', function(req, res) {

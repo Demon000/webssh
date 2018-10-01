@@ -24,7 +24,7 @@
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     var terminalContainer = document.querySelector('#terminal');
-    var terminal = new SSHTerminal(null, terminalContainer);
+    var terminal = new SSHTerminal(terminalContainer);
     terminal.setOption('theme', {
         background: '#242424'
     });

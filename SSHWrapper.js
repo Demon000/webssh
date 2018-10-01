@@ -26,14 +26,14 @@ function Connection(auth, options, streamFn) {
     .connect(auth);
 }
 
-function checkAuth(auth, connectedFn) {
+function checkAuth(auth, successFn) {
     Connection(auth, {}, function(stream) {
         const connection = this;
-        const connected = stream ? true : false;
+        const success = stream ? true : false;
 
         connection.end();
 
-        connectedFn(connected);
+        successFn(success);
     });
 }
 
