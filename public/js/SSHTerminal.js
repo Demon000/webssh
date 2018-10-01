@@ -40,10 +40,11 @@ function SSHTerminal(auth, container) {
 
     t.connect = function(auth) {
         socket.emit('main:connect', 'Terminal', auth, options, function(success) {
-            if (success) {
-                t.attach(container);
+            if (!success) {
+                return;
             }
 
+            t.attach(container);
             t.emitter.emit('connect', success);
         });
     };
