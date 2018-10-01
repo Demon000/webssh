@@ -84,6 +84,8 @@
             <% }%>
         </div>
     </div>
-    <script src="/js/index.js"></script>
+    <% if (!auth) { %>
+        <script src="/js/index.js"></script>
+    <% }%>
 </body>
 </html>
