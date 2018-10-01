@@ -82,6 +82,8 @@ function Terminal(socket, auth, options, streamFn) {
 }
 
 module.exports = {
-    Terminal,
+    apps: {
+        Terminal,
+    },
     checkAuth,
 };
