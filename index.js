@@ -48,20 +48,23 @@ io.on('connect', function(socket) {
     });
 });
 
+function isAuthenticated(req, res, next) {
+    if (req.session.auth)
+        return next();
+
+    res.redirect('/');
+}
+
 app.get('/', function(req, res) {
     res.render('index', {
         auth: req.session.auth
     });
 });
 
-app.get('/terminal', function(req, res) {
-    if (req.session.auth) {
-        res.render('terminal', {
-            auth: req.session.auth
-        });
-    } else {
-        res.redirect('/');
-    }
+app.get('/terminal', isAuthenticated, function(req, res) {
+    res.render('terminal', {
+        auth: req.session.auth
+    });
 });
 
 function getServer(name) {
