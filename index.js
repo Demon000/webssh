@@ -64,9 +64,10 @@ io.on('connect', function(socket) {
         });
     });
 
-    socket.on('main:deauth', function() {
+    socket.on('main:deauth', function(successFn) {
         const session = socket.request.session;
         session.destroy();
+        successFn(true);
     });
 });
 

@@ -18,8 +18,10 @@
         }
     }
 
-    usePrivateKeyInput.addEventListener('change', updateAvailableFields);
-    updateAvailableFields();
+    if (usePrivateKeyInput) {
+        usePrivateKeyInput.addEventListener('change', updateAvailableFields);
+        updateAvailableFields();
+    }
 
     function setNotes(state) {
         var progressNote = document.querySelector('#progress-note');
@@ -75,5 +77,19 @@
     var connectButton = document.querySelector('#connect');
     if (connectButton) {
         connectButton.addEventListener('click', doAuth);
+    }
+
+    function doLogout() {
+        var socket = io();
+        socket.emit('main:deauth', function(success) {
+            if (success) {
+                location.reload();
+            }
+        });
+    }
+
+    var logoutButton = document.querySelector('#logout');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', doLogout);
     }
 })();
