@@ -17,7 +17,6 @@ function SSHConnection(auth, options, streamFn) {
             stream.on('close', function() {
                 connection.end();
             });
-
         });
     })
     .on('error', function() {
