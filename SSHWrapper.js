@@ -1,6 +1,6 @@
 const SSH = require('ssh2').Client;
 
-function Connection(auth, options, streamFn) {
+function SSHConnection(auth, options, streamFn) {
     const connection = new SSH();
     const fn = streamFn.bind(connection);
 
@@ -27,7 +27,7 @@ function Connection(auth, options, streamFn) {
 }
 
 function checkAuth(auth, successFn) {
-    Connection(auth, {}, function(stream) {
+    SSHConnection(auth, {}, function(stream) {
         const connection = this;
         const success = stream ? true : false;
 
@@ -54,7 +54,7 @@ function Terminal(socket, auth, options, streamFn) {
         socket.on('Terminal:size', sizeFn);
     };
 
-    Connection(auth, options, function(stream) {
+    SSHConnection(auth, options, function(stream) {
         const connection = this;
 
         streamFn.call(connection, stream);
