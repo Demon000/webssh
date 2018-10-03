@@ -23,6 +23,11 @@ function SSHTerminal(container) {
         t.emitter.emit('resize');
     }
 
+    t.detach = function() {
+        xterm.dispose();
+        t.emitter.emit('detach');
+    };
+
     t.attach = function(container) {
         xterm
         .loadWebfontAndOpen(container)
@@ -33,8 +38,7 @@ function SSHTerminal(container) {
     };
 
     t.destroy = function() {
-        xterm.dispose();
-        socket.disconnect();
+        t.detach();
         t.emitter.emit('destroy');
     };
 
@@ -42,9 +46,8 @@ function SSHTerminal(container) {
         socket.emit('main:init', 'Terminal', options, function(success) {
             if (success) {
                 t.attach(container);
+                t.emitter.emit('init', success);
             }
-
-            t.emitter.emit('init', success);
         });
     };
 
