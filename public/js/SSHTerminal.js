@@ -58,7 +58,6 @@ function SSHTerminal(container) {
 
     socket.on('Terminal:data', function(data) {
         xterm.write(data);
-        t.emitter.emit('activity', true);
     });
 
     socket.on('Terminal:error', function(message) {
