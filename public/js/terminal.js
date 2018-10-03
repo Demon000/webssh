@@ -24,5 +24,6 @@
 
     terminal.emitter.on('disconnect', function() {
         setConnectionStatus('disconnect');
+        terminal.destroy();
     });
 })();
