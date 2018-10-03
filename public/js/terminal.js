@@ -1,9 +1,6 @@
 (function() {
     var terminalContainer = document.querySelector('#terminal');
     var terminal = new SSHTerminal(terminalContainer);
-    terminal.setOption('theme', {
-        background: '#242424'
-    });
 
     function setConnectionStatus(status) {
         var connectionStatus = document.querySelector('#status');
@@ -20,6 +17,12 @@
 
     terminal.emitter.on('init', function() {
         terminal.attach();
+    });
+
+    terminal.emitter.on('attach', function() {
+        terminal.setOption('theme', {
+            background: '#242424'
+        });
         setConnectionStatus(true);
     });
 
