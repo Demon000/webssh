@@ -1,6 +1,10 @@
 (function() {
     var fileExplorer = new FileExplorer();
-    fileExplorer.list('/home/aicpdevs', function(dir) {
-        console.log(dir);
+    fileExplorer.init();
+
+    fileExplorer.emitter.on('init', function() {
+        fileExplorer.list('/home/aicpdevs', function(dir) {
+            console.log(dir);
+        });
     });
 })();
