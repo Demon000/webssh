@@ -1,4 +1,5 @@
 const filesize = require('filesize');
+const findMime = require('mime-types').lookup;
 
 function Stats(rawStats) {
     if (!rawStats) {
@@ -21,6 +22,7 @@ function File(from) {
         hidden: from.filename.startsWith('.'),
         permissions: from.longname.split(' ')[0],
         type: from.longname.substr(0, 1),
+        mime: findMime(from.filename),
     };
 
     Object.assign(file, Stats(from.attrs));
