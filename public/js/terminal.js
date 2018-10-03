@@ -18,6 +18,7 @@
     }
 
     terminal.emitter.on('connect', function() {
+        terminal.init();
         setConnectionStatus('connect');
     });
 

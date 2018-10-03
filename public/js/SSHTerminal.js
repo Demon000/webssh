@@ -54,11 +54,6 @@ function SSHTerminal(container) {
     };
 
     socket.on('connect', function() {
-        if (firstConnect) {
-            t.init();
-            firstConnect = false;
-        }
-
         t.emitter.emit('connect');
     });
 
