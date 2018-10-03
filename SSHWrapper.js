@@ -1,4 +1,5 @@
 const SSH = require('ssh2').Client;
+const SFTPStream = require('./SFTPStreamWrapper');
 
 function SFTPConnection(auth, options, streamFn) {
     const connection = new SSH();
@@ -22,10 +23,9 @@ function FileExplorer(socket, auth, options, streamFn) {
             return;
         }
 
-        socket.on('FileExplorer:list', function(path, listFn) {
-            stream.readdir(path, function(err, list) {
-                listFn(list);
-            });
+        socket.on('FileExplorer:list', function(path, dirFn) {
+            SFTPStream(stream).readdir(path, dirFn);
+
         });
     });
 }
