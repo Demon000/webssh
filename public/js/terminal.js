@@ -19,11 +19,12 @@
     });
 
     terminal.emitter.on('init', function() {
+        terminal.attach();
         setConnectionStatus(true);
     });
 
     terminal.emitter.on('disconnect', function() {
         setConnectionStatus(false);
-        terminal.destroy();
+        terminal.detach();
     });
 })();
