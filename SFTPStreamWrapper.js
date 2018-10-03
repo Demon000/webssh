@@ -19,6 +19,7 @@ function File(from) {
     const file = {
         name: from.filename,
         permissions: from.longname.split(' ')[0],
+        type: from.longname.substr(0, 1),
     };
 
     Object.assign(file, Stats(from.attrs));
