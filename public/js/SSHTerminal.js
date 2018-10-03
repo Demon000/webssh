@@ -5,7 +5,6 @@ function SSHTerminal(container) {
     var t = this;
 
     var socket = io();
-    var firstConnect = true;
 
     var xterm = new Terminal({
         fontFamily: 'Roboto Mono',
