@@ -1,22 +1,18 @@
 const SSH = require('ssh2').Client;
 
-function SFTPConnection(auth, sftpFn) {
+function SFTPConnection(auth, streamFn) {
     const connection = new SSH();
-    const fn = sftpFn.bind(connection);
+    const fn = streamFn.bind(connection);
 
     connection
     .on('ready', function() {
         connection
-        .sftp(function(err, sftp) {
-            fn(sftp);
-
-            if (!sftp) {
-                return;
-            }
+        .sftp(function(err, stream) {
+            fn(stream);
         });
     })
     .on('error', function() {
-        sftpFn(null);
+        fn(null);
     })
     .connect(auth);
 }
@@ -35,14 +31,6 @@ function SSHConnection(auth, options, streamFn) {
         connection
         .shell(options, function(err, stream) {
             fn(stream);
-
-            if (!stream) {
-                return;
-            }
-
-            stream.on('close', function() {
-                connection.end();
-            });
         });
     })
     .on('error', function() {
@@ -90,6 +78,9 @@ function Terminal(socket, auth, options, streamFn) {
 
         stream.on('data', socket.emitData);
         stream.stderr.on('data', socket.emitData);
+        stream.on('close', function() {
+            connection.end();
+        });
 
         socket.onData(function(data) {
             stream.write(data);
