@@ -3,11 +3,22 @@
     var terminal = new SSHTerminal(terminalContainer);
 
     function setConnectionStatus(status) {
-        var connectionStatus = document.querySelector('#status');
-        if (status) {
-            connectionStatus.classList.add('connected');
-        } else {
-            connectionStatus.classList.remove('connected');
+        var statusContainer = document.querySelector('#status');
+        var statusText = document.querySelector('#status-text');
+        switch (status) {
+        case 'connecting':
+            statusContainer.classList.remove('error');
+            statusContainer.classList.add('visible');
+            statusText.innerHTML = 'Connecting... please wait.';
+            break;
+        case 'connected':
+            statusContainer.classList.remove('visible');
+            break;
+        case 'disconnected':
+            statusContainer.classList.add('error');
+            statusContainer.classList.add('visible');
+            statusText.innerHTML = 'Connection timed out!';
+        break;
         }
     }
 
@@ -23,10 +34,12 @@
         terminal.setOption('theme', {
             background: '#242424'
         });
-        setConnectionStatus(true);
+        setConnectionStatus('connected');
     });
 
     terminal.emitter.on('disconnect', function() {
-        setConnectionStatus(false);
+        setConnectionStatus('disconnected');
     });
+
+    setConnectionStatus('connecting');
 })();

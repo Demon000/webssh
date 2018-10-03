@@ -18,7 +18,7 @@ body {
     top: 0;
     left: 0;
 
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 
@@ -26,6 +26,9 @@ body {
 
     z-index: 10000;
 }
-#status.connected {
-    display: none;
+#status.visible {
+    display: flex;
+}
+#status.error {
+    color: #fc4445;
 }

@@ -4,7 +4,9 @@ Terminal.applyAddon(fit);
 function SSHTerminal(container) {
     var t = this;
 
-    var socket = io();
+    var socket = io({
+        reconnection: false
+    });
 
     var xterm = new Terminal({
         fontFamily: 'Roboto Mono',
