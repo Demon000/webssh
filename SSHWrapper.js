@@ -1,6 +1,6 @@
 const SSH = require('ssh2').Client;
 
-function SFTPConnection(auth, streamFn) {
+function SFTPConnection(auth, options, streamFn) {
     const connection = new SSH();
     const fn = streamFn.bind(connection);
 
@@ -17,8 +17,21 @@ function SFTPConnection(auth, streamFn) {
     .connect(auth);
 }
 
-function FileExplorer(socket, auth, sftpFn) {
-    SFTPConnection(auth, function(sftp) {
+function FileExplorer(socket, auth, options, streamFn) {
+    SFTPConnection(auth, options, function(stream) {
+        const connection = this;
+
+        streamFn.call(connection, stream);
+
+        if (!stream) {
+            return;
+        }
+
+        socket.on('FileExplorer:list', function(path, listFn) {
+            stream.readdir(path, function(err, list) {
+                listFn(list);
+            });
+        });
     });
 }
 
