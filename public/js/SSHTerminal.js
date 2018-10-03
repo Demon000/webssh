@@ -23,11 +23,6 @@ function SSHTerminal(container) {
         t.emitter.emit('resize');
     }
 
-    t.detach = function() {
-        xterm.destroy();
-        t.emitter.emit('detach');
-    };
-
     t.attach = function() {
         xterm
         .loadWebfontAndOpen(container)

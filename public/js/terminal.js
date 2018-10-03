@@ -25,6 +25,5 @@
 
     terminal.emitter.on('disconnect', function() {
         setConnectionStatus(false);
-        terminal.detach();
     });
 })();
