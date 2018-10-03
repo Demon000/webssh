@@ -6,19 +6,14 @@ function SFTPConnection(auth, options, streamFn) {
 
     connection
     .on('ready', function() {
-        connection
-        .sftp(function(err, stream) {
-            fn(stream);
-        });
+        connection.sftp(fn);
     })
-    .on('error', function() {
-        fn(null);
-    })
+    .on('error', fn)
     .connect(auth);
 }
 
 function FileExplorer(socket, auth, options, streamFn) {
-    SFTPConnection(auth, options, function(stream) {
+    SFTPConnection(auth, options, function(err, stream) {
         const connection = this;
 
         streamFn.call(connection, stream);
@@ -41,19 +36,14 @@ function SSHConnection(auth, options, streamFn) {
 
     connection
     .on('ready', function() {
-        connection
-        .shell(options, function(err, stream) {
-            fn(stream);
-        });
+        connection.shell(options, fn);
     })
-    .on('error', function() {
-        fn(null);
-    })
+    .on('error', fn)
     .connect(auth);
 }
 
 function checkAuth(auth, successFn) {
-    SSHConnection(auth, {}, function(stream) {
+    SSHConnection(auth, {}, function(err, stream) {
         const connection = this;
         const success = stream ? true : false;
 
@@ -80,7 +70,7 @@ function Terminal(socket, auth, options, streamFn) {
         socket.on('Terminal:size', sizeFn);
     };
 
-    SSHConnection(auth, options, function(stream) {
+    SSHConnection(auth, options, function(err, stream) {
         const connection = this;
 
         streamFn.call(connection, stream);
