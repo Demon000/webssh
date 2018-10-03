@@ -1,6 +1,10 @@
 const filesize = require('filesize');
 
 function Stats(rawStats) {
+    if (!rawStats) {
+        return {};
+    }
+
     return {
         accessTime: rawStats.atime * 1000,
         modifyTime: rawStats.mtime * 1000,
