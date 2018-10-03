@@ -7,23 +7,23 @@
 
     function setConnectionStatus(status) {
         var connectionStatus = document.querySelector('#status');
-        switch (status) {
-            case 'connect':
-                connectionStatus.classList.add('connected');
-                break;
-            case 'disconnect':
-                connectionStatus.classList.remove('connected');
-                break;
+        if (status) {
+            connectionStatus.classList.add('connected');
+        } else {
+            connectionStatus.classList.remove('connected');
         }
     }
 
     terminal.emitter.on('connect', function() {
         terminal.init();
-        setConnectionStatus('connect');
+    });
+
+    terminal.emitter.on('init', function() {
+        setConnectionStatus(true);
     });
 
     terminal.emitter.on('disconnect', function() {
-        setConnectionStatus('disconnect');
+        setConnectionStatus(false);
         terminal.destroy();
     });
 })();
