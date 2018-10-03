@@ -1,8 +1,19 @@
-(function() {
+function FileExplorer() {
+    var fe = this;
+
     var socket = io();
-    socket.emit('main:init', 'FileExplorer', {}, function(success) {
-        socket.emit('FileExplorer:list', '/home/aicpdevs', function(list) {
-            console.log(list);
+
+    fe.emitter = new EventEmitter();
+
+    fe.init = function() {
+        socket.emit('main:init', 'FileExplorer', {}, function(success) {
+            if (success) {
+                fe.emitter.emit('init');
+            }
         });
-    });
-})();
+    };
+
+    fe.list = function(path, dirFn) {
+        socket.emit('FileExplorer:list', path, dirFn);
+    };
+}
