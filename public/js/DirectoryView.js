@@ -33,10 +33,6 @@ function FileView(file) {
     selection.classList.add('file-view-selection');
     fileContainer.appendChild(selection);
 
-    fileContainer.addEventListener('click', function() {
-        fileContainer.classList.toggle('selected');
-    });
-
     fv.destroy = function() {
         container.removeChild(fileContainer);
     };
@@ -44,6 +40,14 @@ function FileView(file) {
     fv.render = function(newContainer) {
         container = newContainer;
         container.appendChild(fileContainer);
+    };
+
+    fv.select = function(value) {
+        fileContainer.classList.toggle('selected');
+    };
+
+    fv.on = function(event, fn) {
+        fileContainer.addEventListener('click', fn);
     };
 
     fv.data = file;
@@ -71,6 +75,9 @@ function DirectoryView(container) {
             if (!fileView.data.hidden || dv.showHidden) {
                 fileView.render(container);
             }
+
+            fileView.on('click', fileView.select);
+
             return fileView;
         });
     };
