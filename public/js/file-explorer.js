@@ -16,7 +16,7 @@
         fileView.select();
     });
 
-    directoryView.emitter.on('dbclick', function(fileView) {
+    directoryView.emitter.on('dblclick', function(fileView) {
         console.log(directoryView.directory.path + '/' + fileView.data.name);
     });
 

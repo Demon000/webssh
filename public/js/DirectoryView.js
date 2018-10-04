@@ -82,8 +82,8 @@ function DirectoryView(container) {
             dv.emitter.emit('click', fileView);
         });
 
-        fileView.on('dbclick', function() {
-            dv.emitter.emit('dbclick', fileView);
+        fileView.on('dblclick', function() {
+            dv.emitter.emit('dblclick', fileView);
         });
 
         dv.fileViews.push(fileView);
