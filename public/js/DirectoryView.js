@@ -45,8 +45,7 @@ function FileView(file, container) {
     };
 
     fv.on = function(event, fn) {
-        icon.addEventListener(event, fn);
-        name.addEventListener(event, fn);
+        fileContainer.addEventListener(event, fn);
     };
 
     fv.data = file;
