@@ -40,7 +40,7 @@ function FileView(file, container) {
         container.appendChild(fileContainer);
     };
 
-    fv.select = function(value) {
+    fv.toggleSelect = function() {
         return fileContainer.classList.toggle('selected');
     };
 
