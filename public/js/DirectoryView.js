@@ -43,7 +43,7 @@ function FileView(file) {
     };
 
     fv.select = function(value) {
-        fileContainer.classList.toggle('selected');
+        return fileContainer.classList.toggle('selected');
     };
 
     fv.on = function(event, fn) {
@@ -55,30 +55,39 @@ function FileView(file) {
 
 function DirectoryView(container) {
     var dv = this;
-    var files;
-
+    
+    dv.files = [];
     dv.showHidden = false;
+    dv.emitter = new EventEmitter();
 
     dv.empty = function() {
-        files.forEach(function(file) {
+        dv.files.forEach(function(file) {
             file.destroy();
         });
+        dv.files = [];
     };
 
+    dv.addFile = function(fileView) {
+        if (!fileView.data.hidden || dv.showHidden) {
+            fileView.render(container);
+        }
+
+        fileView.on('click', function() {
+            var value = fileView.select();
+            var event = value ? 'select' : 'deselect';
+            dv.emitter.emit(event, fileView);
+        });
+
+        dv.files.push(fileView);
+    }
+
     dv.set = function(directory) {
-        if (files) {
+        if (dv.files) {
             dv.empty();
         }
 
-        files = directory.files.map(function(file) {
-            var fileView = new FileView(file);
-            if (!fileView.data.hidden || dv.showHidden) {
-                fileView.render(container);
-            }
-
-            fileView.on('click', fileView.select);
-
-            return fileView;
+        directory.files.forEach(function(file) {
+            dv.addFile(new FileView(file));
         });
     };
 }
