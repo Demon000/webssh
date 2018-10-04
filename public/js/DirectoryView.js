@@ -55,39 +55,47 @@ function FileView(file) {
 
 function DirectoryView(container) {
     var dv = this;
-    
-    dv.files = [];
+
+    dv.fileViews = [];
+    dv.directory = null;
     dv.showHidden = false;
     dv.emitter = new EventEmitter();
 
     dv.empty = function() {
-        dv.files.forEach(function(file) {
-            file.destroy();
+        dv.fileViews.forEach(function(fileView) {
+            fileView.destroy();
         });
-        dv.files = [];
     };
 
     dv.addFile = function(fileView) {
         fileView.on('click', function() {
-            var value = fileView.select();
-            var event = value ? 'select' : 'deselect';
-            dv.emitter.emit(event, fileView);
+            dv.emitter.emit('click', fileView);
         });
 
-        dv.files.push(fileView);
-    }
+        fileView.on('dbclick', function() {
+            dv.emitter.emit('dbclick', fileView);
+        });
+
+        dv.fileViews.push(fileView);
+    };
 
     dv.set = function(directory) {
-        if (dv.files) {
-            dv.empty();
-        }
+        dv.directory = directory;
 
-        directory.files.forEach(function(file) {
+        dv.directory.files.forEach(function(file) {
             var fileView = new FileView(file);
+            dv.addFile(fileView);
+        });
+
+        dv.emitter.emit('set');
+    };
+
+    dv.refresh = function() {
+        dv.empty();
+        dv.fileViews.forEach(function(fileView) {
             if (!fileView.data.hidden || dv.showHidden) {
                 fileView.render(container);
             }
-            dv.addFile(fileView);
         });
     };
 }
