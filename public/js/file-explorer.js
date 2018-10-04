@@ -12,12 +12,12 @@
     });
 
     directoryView.emitter.on('click', function(fileView) {
-        console.log(directoryView.directory.path + '/' + fileView.data.name);
+        console.log('click: ' + directoryView.directory.path + '/' + fileView.data.name);
         fileView.select();
     });
 
     directoryView.emitter.on('dblclick', function(fileView) {
-        console.log(directoryView.directory.path + '/' + fileView.data.name);
+        console.log('dblclick: ' + directoryView.directory.path + '/' + fileView.data.name);
     });
 
 })();
