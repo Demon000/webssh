@@ -11,8 +11,6 @@
         });
     });
 
-    directoryView.emitter.on('set', directoryView.refresh);
-
     directoryView.emitter.on('click', function(fileView) {
         console.log(directoryView.directory.path + '/' + fileView.data.name);
         fileView.select();

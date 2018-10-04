@@ -13,9 +13,8 @@ function setFileIcon(icon, file) {
     }
 }
 
-function FileView(file) {
+function FileView(file, container) {
     var fv = this;
-    var container;
 
     var fileContainer = document.createElement('div');
     fileContainer.classList.add('file-view');
@@ -37,8 +36,7 @@ function FileView(file) {
         container.removeChild(fileContainer);
     };
 
-    fv.render = function(newContainer) {
-        container = newContainer;
+    fv.render = function() {
         container.appendChild(fileContainer);
     };
 
@@ -47,7 +45,7 @@ function FileView(file) {
     };
 
     fv.on = function(event, fn) {
-        fileContainer.addEventListener('click', fn);
+        fileContainer.addEventListener(event, fn);
     };
 
     fv.data = file;
@@ -61,9 +59,21 @@ function DirectoryView(container) {
     dv.showHidden = false;
     dv.emitter = new EventEmitter();
 
+    dv.eachView = function(fn) {
+        dv.fileViews.forEach(fn);
+    };
+
     dv.empty = function() {
-        dv.fileViews.forEach(function(fileView) {
+        dv.eachView(function(fileView) {
             fileView.destroy();
+        });
+    };
+
+    dv.render = function() {
+        dv.eachView(function(fileView) {
+            if (!fileView.data.hidden || dv.showHidden) {
+                fileView.render(container);
+            }
         });
     };
 
@@ -81,21 +91,14 @@ function DirectoryView(container) {
 
     dv.set = function(directory) {
         dv.directory = directory;
+        dv.empty();
 
         dv.directory.files.forEach(function(file) {
-            var fileView = new FileView(file);
+            var fileView = new FileView(file, container);
             dv.addFile(fileView);
         });
 
+        dv.render();
         dv.emitter.emit('set');
-    };
-
-    dv.refresh = function() {
-        dv.empty();
-        dv.fileViews.forEach(function(fileView) {
-            if (!fileView.data.hidden || dv.showHidden) {
-                fileView.render(container);
-            }
-        });
     };
 }
