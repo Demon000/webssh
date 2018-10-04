@@ -93,6 +93,10 @@ function DirectoryView(container) {
         dv.directory = directory;
         dv.empty();
 
+        dv.directory.files.sort(function(a, b) {
+            return (a.type != 'd') - (b.type != 'd');
+        });
+
         dv.directory.files.forEach(function(file) {
             var fileView = new FileView(file, container);
             dv.addFile(fileView);
