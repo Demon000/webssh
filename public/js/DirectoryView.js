@@ -68,10 +68,6 @@ function DirectoryView(container) {
     };
 
     dv.addFile = function(fileView) {
-        if (!fileView.data.hidden || dv.showHidden) {
-            fileView.render(container);
-        }
-
         fileView.on('click', function() {
             var value = fileView.select();
             var event = value ? 'select' : 'deselect';
@@ -87,7 +83,11 @@ function DirectoryView(container) {
         }
 
         directory.files.forEach(function(file) {
-            dv.addFile(new FileView(file));
+            var fileView = new FileView(file);
+            if (!fileView.data.hidden || dv.showHidden) {
+                fileView.render(container);
+            }
+            dv.addFile(fileView);
         });
     };
 }
