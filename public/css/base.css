@@ -172,3 +172,18 @@ button:disabled {
 .logo .color {
     color: #5680e9;
 }
+
+/* Navbar */
+#navbar {
+    width: 100%;
+
+    padding: 4px 16px;
+    height: 32px;
+}
+
+#navbar > * {
+    height: 24px;
+    line-height: 24px;
+
+    display: inline-block;
+}
