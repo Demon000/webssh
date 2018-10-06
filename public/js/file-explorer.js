@@ -19,5 +19,4 @@
     directoryView.emitter.on('dblclick', function(fileView) {
         console.log('dblclick: ' + directoryView.directory.path + '/' + fileView.data.name);
     });
-
 })();
