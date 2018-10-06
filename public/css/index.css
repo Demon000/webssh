@@ -72,6 +72,10 @@
     color: #ffffff;
 }
 
+#logout {
+    cursor: pointer;
+}
+
 #check {
     text-align: center;
 }
