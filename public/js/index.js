@@ -63,8 +63,7 @@
 
         setNotes('progress');
 
-        var socket = io();
-        socket.emit('main:auth', auth, function(success) {
+        SSHAuth.login(auth, function(success) {
             if (success) {
                 location.reload();
                 setNotes();
@@ -80,8 +79,7 @@
     }
 
     function doLogout() {
-        var socket = io();
-        socket.emit('main:deauth', function(success) {
+        SSHAuth.logout(function(success) {
             if (success) {
                 location.reload();
             }
