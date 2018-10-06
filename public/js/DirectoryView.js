@@ -28,10 +28,6 @@ function FileView(file, container) {
     name.innerHTML = file.name;
     fileContainer.appendChild(name);
 
-    var selection = document.createElement('div');
-    selection.classList.add('file-view-selection');
-    fileContainer.appendChild(selection);
-
     fv.destroy = function() {
         container.removeChild(fileContainer);
     };

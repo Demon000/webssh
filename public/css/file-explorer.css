@@ -25,35 +25,22 @@
     margin: 24px;
 }
 
-.file-view .file-view-selection {
-    width: 100%;
-    padding-bottom: 100%;
-
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    display: none;
-
+.file-view.selected > * {
     border: 1px solid #90caf9;
-    border-bottom: 0px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-
     background: rgba(144, 202, 249, 0.25);
-
-    z-index: 1000;
+    border-radius: 3px;
 }
 
-.file-view.selected .file-view-selection {
-    display: block;
+.file-view.selected .file-view-icon {
+    border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .file-view.selected .file-view-name {
-    border: 1px solid #90caf9;
-    border-top: 0px;
-
-    background: rgba(144, 202, 249, 0.25);
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .file-view-icon {
