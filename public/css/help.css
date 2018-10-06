@@ -1,0 +1,17 @@
+body {
+    padding: 32px;
+    line-height: 32px;
+}
+
+.title {
+    font-size: 24px;
+}
+
+kbd {
+    padding: 4px;
+
+    background: #333333;
+
+    border: 1px solid #444444;
+    border-radius: 3px;
+}

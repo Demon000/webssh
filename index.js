@@ -90,6 +90,10 @@ app.get('/terminal', isAuthenticated, function(req, res) {
     });
 });
 
+app.get('/help', function(req, res) {
+    res.render('help');
+});
+
 app.get('/file-explorer', isAuthenticated, function(req, res) {
     res.render('file-explorer', {
         auth: req.session.auth

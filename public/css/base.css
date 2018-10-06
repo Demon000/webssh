@@ -177,10 +177,24 @@ button:disabled {
 #navbar {
     width: 100%;
 
+    text-align: right;
+
+    position: relative;
+
     padding: 4px 16px;
     height: 32px;
 }
+#navbar .logo {
+    position: absolute;
+    top: 4px;
+    left: 4px;
 
+    font-size: 20px;
+}
+#navbar .help {
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+}
 #navbar > * {
     height: 24px;
     line-height: 24px;
