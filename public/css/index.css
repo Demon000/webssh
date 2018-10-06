@@ -36,6 +36,10 @@
     justify-content: center;
 }
 
+.logo {
+    font-size: 64px;
+}
+
 #auth {
     max-width: 512px;
     width: 100%;
@@ -48,20 +52,6 @@
     text-align: center;
 }
 #auth .info .word {
-    color: #5680e9;
-}
-
-#logo {
-    font-family: 'Nunito', sans-serif;
-    font-size: 64px;
-    font-weight: 600;
-    text-align: center;
-
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-}
-#logo .color {
     color: #5680e9;
 }
 
