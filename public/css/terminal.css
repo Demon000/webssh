@@ -4,10 +4,10 @@
 
 #status {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 32px);
 
     position: absolute;
-    top: 0;
+    top: 32px;
     left: 0;
 
     display: none;
