@@ -34,6 +34,7 @@
         terminal.setOption('theme', {
             background: '#242424'
         });
+        terminal.focus();
         setConnectionStatus('connected');
     });
 

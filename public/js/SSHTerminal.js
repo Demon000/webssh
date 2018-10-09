@@ -34,6 +34,10 @@ function SSHTerminal(container) {
         });
     };
 
+    t.focus = function() {
+        xterm.focus();
+    };
+
     t.init = function() {
         socket.emit('main:init', 'Terminal', options, function(success) {
             if (success) {
