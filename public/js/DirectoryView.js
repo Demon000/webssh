@@ -67,7 +67,6 @@ function DirectoryView(container) {
 
     dv.fileViews = [];
     dv.directory = null;
-    dv.showHidden = false;
     dv.emitter = new EventEmitter();
 
     dv.setHiddenVisible = function(value) {
