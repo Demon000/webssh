@@ -10,7 +10,7 @@
 
 #directory-view {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 32px - 42px);
 
     display: flex;
     align-items: flex-start;
