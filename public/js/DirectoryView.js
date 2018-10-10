@@ -36,8 +36,16 @@ function FileView(file, container) {
         container.appendChild(fileContainer);
     };
 
-    fv.toggleSelect = function() {
-        return fileContainer.classList.toggle('selected');
+    fv.setSelect = function(value) {
+        if (value) {
+            fileContainer.classList.add('selected');
+        } else {
+            fileContainer.classList.remove('selected');
+        }
+    };
+
+    fv.getSelect = function() {
+        return fileContainer.classList.contains('selected');
     };
 
     fv.on = function(event, fn) {
