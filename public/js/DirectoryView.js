@@ -18,6 +18,9 @@ function FileView(file, container) {
 
     var fileContainer = document.createElement('div');
     fileContainer.classList.add('file-view');
+    if (file.hidden) {
+        fileContainer.classList.add('hidden');
+    }
 
     var icon = document.createElement('img');
     setFileIcon(icon, file);
@@ -55,6 +58,10 @@ function FileView(file, container) {
     fv.data = file;
 }
 
+function directoryFirstComparator(a, b) {
+    return (a.type != 'd') - (b.type != 'd');
+}
+
 function DirectoryView(container) {
     var dv = this;
 
@@ -63,26 +70,19 @@ function DirectoryView(container) {
     dv.showHidden = false;
     dv.emitter = new EventEmitter();
 
-    dv.eachView = function(fn) {
-        dv.fileViews.forEach(fn);
+    dv.setHiddenVisible = function(value) {
+        if (value) {
+            container.classList.add('hidden-visible');
+        } else {
+            container.classList.remove('hidden-visible');
+        }
     };
 
-    dv.empty = function() {
-        dv.eachView(function(fileView) {
-            fileView.destroy();
-        });
-        dv.fileViews = [];
+    dv.getHiddenVisible = function(value) {
+        return container.classList.contains('hidden-visible');
     };
 
-    dv.render = function() {
-        dv.eachView(function(fileView) {
-            if (!fileView.data.hidden || dv.showHidden) {
-                fileView.render(container);
-            }
-        });
-    };
-
-    dv.addFile = function(fileView) {
+    dv.addFileView = function(fileView) {
         fileView.on('click', function() {
             dv.emitter.emit('click', fileView);
         });
@@ -92,22 +92,36 @@ function DirectoryView(container) {
         });
 
         dv.fileViews.push(fileView);
+
+        fileView.render();
     };
 
-    dv.set = function(directory) {
+    dv.removeFileView = function(fileView) {
+        var index = dv.fileViews.indexOf(fileView);
+        if (index > -1) {
+            dv.fileViews.splice(index, 1);
+        }
+
+        fileView.destroy();
+    };
+
+    dv.addFromFile = function(file) {
+        var fileView = new FileView(file, container);
+        dv.addFileView(fileView);
+    };
+
+    dv.removeFileViews = function() {
+        dv.fileViews.forEach(dv.removeFileView);
+    };
+
+    dv.setDirectory = function(directory) {
+        directory.files.sort(directoryFirstComparator);
+
+        dv.removeFileViews();
+        directory.files.forEach(dv.addFromFile);
+
         dv.directory = directory;
-        dv.empty();
 
-        dv.directory.files.sort(function(a, b) {
-            return (a.type != 'd') - (b.type != 'd');
-        });
-
-        dv.directory.files.forEach(function(file) {
-            var fileView = new FileView(file, container);
-            dv.addFile(fileView);
-        });
-
-        dv.render();
         dv.emitter.emit('set');
     };
 }

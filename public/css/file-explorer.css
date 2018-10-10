@@ -37,6 +37,14 @@
     margin: 24px;
 }
 
+.file-view.hidden {
+    display: none;
+}
+
+.hidden-visible .file-view.hidden {
+    display: inline-block;
+}
+
 .file-view.selected > * {
     border: 1px solid #90caf9;
     background: rgba(144, 202, 249, 0.25);
