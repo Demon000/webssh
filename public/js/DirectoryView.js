@@ -97,9 +97,7 @@ function DirectoryView(container) {
 
     dv.removeFileView = function(fileView) {
         var index = dv.fileViews.indexOf(fileView);
-        if (index > -1) {
-            dv.fileViews.splice(index, 1);
-        }
+        dv.fileViews.splice(index, 1);
 
         fileView.destroy();
     };
