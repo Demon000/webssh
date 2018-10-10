@@ -71,6 +71,7 @@ function DirectoryView(container) {
         dv.eachView(function(fileView) {
             fileView.destroy();
         });
+        dv.fileViews = [];
     };
 
     dv.render = function() {
