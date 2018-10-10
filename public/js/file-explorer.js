@@ -1,6 +1,5 @@
 (function() {
-    var fileExplorer = new FileExplorer();
-    fileExplorer.init();
+    var fileExplorer = new FileExplorer().init();
 
     var directoryViewContainer = document.querySelector('#directory-view');
     var directoryView = new DirectoryView(directoryViewContainer);
