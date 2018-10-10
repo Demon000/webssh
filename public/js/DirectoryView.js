@@ -108,7 +108,10 @@ function DirectoryView(container) {
     };
 
     dv.removeFileViews = function() {
-        dv.fileViews.forEach(dv.removeFileView);
+        dv.fileViews.forEach(function(fileView) {
+            fileView.destroy();
+        });
+        dv.fileViews = [];
     };
 
     dv.setDirectory = function(directory) {
