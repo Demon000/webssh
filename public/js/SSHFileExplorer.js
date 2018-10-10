@@ -11,9 +11,12 @@ function FileExplorer() {
                 fe.emitter.emit('init');
             }
         });
+
+        return fe;
     };
 
     fe.list = function(path, dirFn) {
         socket.emit('FileExplorer:list', path, dirFn);
+        return fe;
     };
 }
