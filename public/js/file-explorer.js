@@ -42,11 +42,12 @@
     window.addEventListener('hashchange', hashPathChange);
     fileExplorer.emitter.on('init', hashPathChange);
 
-    directoryView.emitter.on('click', function(fileView) {
-        console.log('click: ' + directoryView.directory.path + '/' + fileView.data.name);
-    });
-
     directoryView.emitter.on('dblclick', function(fileView) {
-        console.log('dblclick: ' + directoryView.directory.path + '/' + fileView.data.name);
+        if (fileView.data.type != 'd') {
+            return;
+        }
+
+        var path = directoryView.directory.path + '/' + fileView.data.name;
+        pathUpdate(path);
     });
 })();
