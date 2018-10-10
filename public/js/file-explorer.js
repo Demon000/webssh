@@ -12,7 +12,6 @@
 
     directoryView.emitter.on('click', function(fileView) {
         console.log('click: ' + directoryView.directory.path + '/' + fileView.data.name);
-        fileView.toggleSelect();
     });
 
     directoryView.emitter.on('dblclick', function(fileView) {
