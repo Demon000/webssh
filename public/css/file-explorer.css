@@ -6,6 +6,8 @@
 }
 #path-input {
     height: 100%;
+
+    padding: 0 16px;
 }
 
 #directory-view {
