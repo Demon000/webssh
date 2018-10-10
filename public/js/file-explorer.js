@@ -11,7 +11,7 @@
     }
 
     function pathUpdate(path, from) {
-        fileExplorer.list(path, directoryView.set);
+        fileExplorer.list(path, directoryView.setDirectory);
 
         if (from != 'hash') {
             window.location.hash = path;
