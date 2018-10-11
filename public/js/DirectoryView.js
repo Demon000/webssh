@@ -77,6 +77,10 @@ function DirectoryView(container) {
         }
     };
 
+    dv.toggleHiddenVisible = function() {
+        return container.classList.toggle('hidden-visible');
+    };
+
     dv.getHiddenVisible = function(value) {
         return container.classList.contains('hidden-visible');
     };
@@ -124,4 +128,11 @@ function DirectoryView(container) {
 
         dv.emitter.emit('set');
     };
+
+    window.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.key == 'h') {
+            dv.toggleHiddenVisible();
+            event.preventDefault();
+        }
+    });
 }
