@@ -1,3 +1,5 @@
+const path = require('path');
+
 const filesize = require('filesize');
 const findMime = require('mime-types').lookup;
 
@@ -19,6 +21,7 @@ function Stats(rawStats) {
 function File(from) {
     const file = {
         name: from.filename,
+        path: from.path,
         hidden: from.filename.startsWith('.'),
         permissions: from.longname.split(' ')[0],
         type: from.longname.substr(0, 1),
@@ -33,7 +36,10 @@ function File(from) {
 function Directory(from) {
     const dir = {
         path: from.path,
-        files: from.files.map(File),
+        files: from.files.map(function(file) {
+            file.path = path.join(from.path, file.filename);
+            return new File(file);
+        }),
     };
  
     Object.assign(dir, Stats(from.stats));

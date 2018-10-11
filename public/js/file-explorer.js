@@ -47,7 +47,6 @@
             return;
         }
 
-        var path = directoryView.directory.path + '/' + fileView.data.name;
-        pathUpdate(path);
+        pathUpdate(fileView.data.path);
     });
 })();
