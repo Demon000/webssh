@@ -158,6 +158,7 @@ function DirectoryView(container) {
 
     dv.bindings = [
         new KeyBind({
+            type: 'keydown',
             ctrlKey: true,
             key: 'h',
             command: dv.toggleHiddenVisible,
