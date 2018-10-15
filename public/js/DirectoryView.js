@@ -47,6 +47,10 @@ function FileView(file, container) {
         }
     };
 
+    fv.toggleSelect = function() {
+        return fileContainer.classList.toggle('selected');
+    };
+
     fv.getSelect = function() {
         return fileContainer.classList.contains('selected');
     };
@@ -96,6 +100,8 @@ function DirectoryView(container) {
     dv.directory = null;
     dv.emitter = new EventEmitter();
 
+    dv.inSelection = false;
+
     dv.setHiddenVisible = function(value) {
         if (value) {
             container.classList.add('hidden-visible');
@@ -112,8 +118,32 @@ function DirectoryView(container) {
         return container.classList.contains('hidden-visible');
     };
 
+    dv.cancelSelection = function() {
+        dv.fileViews.forEach(function(fileView) {
+            fileView.setSelect(false);
+        });
+    };
+
+    dv.setInSelection = function(value) {
+        dv.inSelection = value;
+    };
+
+    function onCtrlKeyEvent(event) {
+        dv.setInSelection(event.ctrlKey);
+    }
+
+    function onFileViewClick(fileView) {
+        if (!dv.ctrlKeyPressed) {
+            dv.cancelSelection();
+            fileView.setSelect(true);
+        } else {
+            fileView.toggleSelect();
+        }
+    }
+
     dv.addFileView = function(fileView) {
         fileView.on('click', function() {
+            onFileViewClick(fileView);
             dv.emitter.emit('click', fileView);
         });
 
@@ -158,6 +188,10 @@ function DirectoryView(container) {
 
     dv.bindings = [
         new KeyBind({
+            command: onCtrlKeyEvent,
+            key: 'Control'
+        }),
+        new KeyBind({
             type: 'keydown',
             ctrlKey: true,
             key: 'h',
@@ -180,4 +214,5 @@ function DirectoryView(container) {
     };
 
     window.addEventListener('keydown', dv.handleEvent);
+    window.addEventListener('keyup', dv.handleEvent);
 }
