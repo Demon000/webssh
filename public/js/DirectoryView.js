@@ -107,6 +107,7 @@ function DirectoryView(container) {
             container.classList.add('hidden-visible');
         } else {
             container.classList.remove('hidden-visible');
+            dv.cancelSelection();
         }
     };
 
