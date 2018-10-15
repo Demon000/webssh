@@ -141,7 +141,7 @@ function DirectoryView(container) {
     }
 
     function onFileViewClick(fileView) {
-        if (!dv.ctrlKeyPressed) {
+        if (!dv.inSelection) {
             dv.cancelSelection();
             fileView.setSelect(true);
         } else {
