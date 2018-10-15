@@ -161,14 +161,13 @@ function DirectoryView(container) {
     };
 
     dv.handleEvent = function(event) {
-        var matchedKeyBind = dv.bindings.find(function(keyBind) {
-            return keyBind.matches(event);
+        dv.bindings.forEach(function(keyBind) {
+            var matches = keyBind.matches(event);
+            if (matches) {
+                keyBind.run();
+                event.preventDefault();
+            }
         });
-
-        if (matchedKeyBind) {
-            matchedKeyBind.run();
-            event.preventDefault();
-        }
     };
 
     window.addEventListener('keydown', dv.handleEvent);
