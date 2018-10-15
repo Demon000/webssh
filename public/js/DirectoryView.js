@@ -66,6 +66,10 @@ function KeyBind(options) {
     var kb = this;
 
     kb.matches = function(event) {
+        if (options.type != event.type) {
+            return false;
+        }
+
         if (options.ctrlKey != event.ctrlKey) {
             return false;
         }
