@@ -62,6 +62,25 @@ function directoryFirstComparator(a, b) {
     return (a.type != 'd') - (b.type != 'd');
 }
 
+function KeyBind(options) {
+    var kb = this;
+
+    kb.matches = function(event) {
+        console.log(options, event)
+        if (options.ctrlKey != event.ctrlKey) {
+            return false;
+        }
+
+        if (options.key != event.key) {
+            return false;
+        }
+
+        return true;
+    };
+
+    kb.run = options.command;
+}
+
 function DirectoryView(container) {
     var dv = this;
 
@@ -129,10 +148,28 @@ function DirectoryView(container) {
         dv.emitter.emit('set');
     };
 
-    window.addEventListener('keydown', function(event) {
-        if (event.ctrlKey && event.key == 'h') {
-            dv.toggleHiddenVisible();
+    dv.bindings = [
+        new KeyBind({
+            ctrlKey: true,
+            key: 'h',
+            command: dv.toggleHiddenVisible,
+        }),
+    ];
+
+    dv.addKeyBind = function(options) {
+        dv.bindings.push(new KeyBind(options));
+    };
+
+    dv.handleEvent = function(event) {
+        var matchedKeyBind = dv.bindings.find(function(keyBind) {
+            return keyBind.matches(event);
+        });
+
+        if (matchedKeyBind) {
+            matchedKeyBind.run();
             event.preventDefault();
         }
-    });
+    };
+
+    window.addEventListener('keydown', dv.handleEvent);
 }
