@@ -124,6 +124,12 @@ function DirectoryView(container) {
         });
     };
 
+    dv.getSelection = function() {
+        return dv.fileViews.filter(function(fileView) {
+            return fileView.getSelect();
+        });
+    };
+
     dv.setInSelection = function(value) {
         dv.inSelection = value;
     };
