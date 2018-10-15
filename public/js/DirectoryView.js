@@ -110,12 +110,13 @@ function DirectoryView(container) {
         }
     };
 
-    dv.toggleHiddenVisible = function() {
-        return container.classList.toggle('hidden-visible');
-    };
-
     dv.getHiddenVisible = function(value) {
         return container.classList.contains('hidden-visible');
+    };
+
+    dv.toggleHiddenVisible = function() {
+        var currentValue = dv.getHiddenVisible();
+        dv.setHiddenVisible(!currentValue);
     };
 
     dv.cancelSelection = function() {
