@@ -173,7 +173,7 @@ function DirectoryView(container) {
         dv.bindings.forEach(function(keyBind) {
             var matches = keyBind.matches(event);
             if (matches) {
-                keyBind.run();
+                keyBind.run(event);
                 event.preventDefault();
             }
         });
