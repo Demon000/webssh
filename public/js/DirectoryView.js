@@ -69,17 +69,18 @@ function KeyBind(options) {
         return value != null;
     }
 
+    var matchingKeys = {
+        'type': 'type',
+        'ctrlKey': 'ctrlKey',
+        'key': 'key',
+    };
+
     kb.matches = function(event) {
-        if (isValid(options.type) && options.type != event.type) {
-            return false;
-        }
-
-        if (isValid(options.ctrlKey) && options.ctrlKey != event.ctrlKey) {
-            return false;
-        }
-
-        if (isValid(options.key) && options.key != event.key) {
-            return false;
+        for (var key in matchingKeys) {
+            var eventKey = matchingKeys[key];
+            if (isValid(options[key]) && options[key] != event[eventKey]) {
+                return false;
+            }
         }
 
         return true;
