@@ -90,7 +90,13 @@ function KeyBind(options) {
         return true;
     };
 
-    kb.run = options.command;
+    kb.runIfMatches = function(event) {
+        var matches = kb.matches(event);
+        if (matches) {
+            options.command(event);
+        }
+        return matches;
+    };
 }
 
 function DirectoryView(container) {
@@ -215,9 +221,8 @@ function DirectoryView(container) {
 
     dv.handleEvent = function(event) {
         dv.bindings.forEach(function(keyBind) {
-            var matches = keyBind.matches(event);
+            var matches = keyBind.runIfMatches(event);
             if (matches) {
-                keyBind.run(event);
                 event.preventDefault();
             }
         });
