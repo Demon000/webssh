@@ -126,8 +126,8 @@ function DirectoryView(container) {
     };
 
     dv.toggleHiddenVisible = function() {
-        var currentValue = dv.getHiddenVisible();
-        dv.setHiddenVisible(!currentValue);
+        var value = !dv.getHiddenVisible();
+        dv.setHiddenVisible(value);
     };
 
     dv.cancelSelection = function() {
