@@ -91,7 +91,9 @@ function DirectoryView(container) {
 
     dv.fileViews = [];
     dv.directory = null;
-    dv.emitter = new EventEmitter();
+    var emitter = new EventEmitter();
+    dv.on = emitter.on.bind(emitter);
+    dv.emit = emitter.emit.bind(emitter);
 
     dv.inSelection = false;
 
@@ -151,12 +153,12 @@ function DirectoryView(container) {
     dv.addFileView = function(fileView) {
         fileView.on('click', function(event) {
             onFileViewClick(fileView);
-            dv.emitter.emit('click', fileView);
+            dv.emit('click', fileView);
             event.stopPropagation();
         });
 
         fileView.on('dblclick', function(event) {
-            dv.emitter.emit('dblclick', fileView);
+            dv.emit('dblclick', fileView);
             event.stopPropagation();
         });
 
@@ -191,8 +193,6 @@ function DirectoryView(container) {
         directory.files.forEach(dv.addFromFile);
 
         dv.directory = directory;
-
-        dv.emitter.emit('set');
     };
 
     dv.bindings = [

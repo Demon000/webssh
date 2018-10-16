@@ -40,9 +40,9 @@
 
     pathInput.addEventListener('keyup', inputPathChange);
     window.addEventListener('hashchange', hashPathChange);
-    fileExplorer.emitter.on('init', hashPathChange);
+    fileExplorer.on('init', hashPathChange);
 
-    directoryView.emitter.on('dblclick', function(fileView) {
+    directoryView.on('dblclick', function(fileView) {
         if (fileView.data.type != 'd') {
             return;
         }

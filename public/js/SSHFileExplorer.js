@@ -3,12 +3,14 @@ function FileExplorer() {
 
     var socket = io();
 
-    fe.emitter = new EventEmitter();
+    var emitter = new EventEmitter();
+    fe.on = emitter.on.bind(emitter);
+    fe.emit = emitter.emit.bind(emitter);
 
     fe.init = function() {
         socket.emit('main:init', 'FileExplorer', {}, function(success) {
             if (success) {
-                fe.emitter.emit('init');
+                fe.emit('init');
             }
         });
 
