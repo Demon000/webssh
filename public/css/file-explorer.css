@@ -47,7 +47,7 @@
 }
 
 .file-view.selected {
-    border: 1px solid #90caf9;
+    box-shadow: 0 0 0 1px #90caf9;
     background: rgba(144, 202, 249, 0.25);
     border-radius: 3px;
 }
