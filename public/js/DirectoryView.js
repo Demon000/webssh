@@ -57,8 +57,6 @@ function FileView(file, container) {
         } else {
             fileContainer.classList.remove('selected');
         }
-
-        fv.emit('select', value);
     };
 
     fv.toggleSelect = function() {
@@ -134,6 +132,7 @@ function DirectoryView(container) {
         dv.fileViews.forEach(function(fileView) {
             fileView.setSelect(false);
         });
+        dv.emit('select', dv.getSelection());
     };
 
     dv.getSelection = function() {
@@ -157,6 +156,7 @@ function DirectoryView(container) {
         } else {
             fileView.toggleSelect();
         }
+        dv.emit('select', dv.getSelection());
     }
 
     function onDirectoryViewClick() {
@@ -175,11 +175,6 @@ function DirectoryView(container) {
         fileView.on('dblclick', function(event) {
             dv.emit('dblclick', fileView);
             event.stopPropagation();
-        });
-
-        fileView.on('select', function() {
-            var selection = dv.getSelection();
-            dv.emit('select', selection);
         });
 
         dv.fileViews.push(fileView);
