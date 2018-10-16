@@ -36,6 +36,8 @@
     width: 96px;
 
     margin: 24px;
+
+    border-radius: 3px;
 }
 
 .file-view.hidden {
@@ -49,7 +51,6 @@
 .file-view.selected {
     box-shadow: 0 0 0 1px #90caf9;
     background: rgba(144, 202, 249, 0.25);
-    border-radius: 3px;
 }
 
 .file-view-icon {
@@ -67,7 +68,4 @@
     font-size: 14px;
     text-align: center;
     word-break: break-all;
-
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
 }
