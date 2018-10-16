@@ -48,6 +48,8 @@ function FileView(file, container) {
         } else {
             fileContainer.classList.remove('selected');
         }
+
+        fv.emit('select', value);
     };
 
     fv.toggleSelect = function() {
