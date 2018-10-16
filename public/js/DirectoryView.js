@@ -150,13 +150,15 @@ function DirectoryView(container) {
     }
 
     dv.addFileView = function(fileView) {
-        fileView.on('click', function() {
+        fileView.on('click', function(event) {
             onFileViewClick(fileView);
             dv.emitter.emit('click', fileView);
+            event.preventDefault();
         });
 
-        fileView.on('dblclick', function() {
+        fileView.on('dblclick', function(event) {
             dv.emitter.emit('dblclick', fileView);
+            event.preventDefault();
         });
 
         dv.fileViews.push(fileView);
