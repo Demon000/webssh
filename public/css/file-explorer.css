@@ -46,22 +46,10 @@
     display: inline-block;
 }
 
-.file-view.selected > * {
+.file-view.selected {
     border: 1px solid #90caf9;
     background: rgba(144, 202, 249, 0.25);
     border-radius: 3px;
-}
-
-.file-view.selected .file-view-icon {
-    border-bottom: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.file-view.selected .file-view-name {
-    border-top: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
 }
 
 .file-view-icon {
