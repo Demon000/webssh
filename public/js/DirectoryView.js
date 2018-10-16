@@ -42,7 +42,16 @@ function FileView(file, container) {
         container.appendChild(fileContainer);
     };
 
+    fv.getSelect = function() {
+        return fileContainer.classList.contains('selected');
+    };
+
     fv.setSelect = function(value) {
+        var oldValue = fv.getSelect();
+        if (value == oldValue) {
+            return;
+        }
+
         if (value) {
             fileContainer.classList.add('selected');
         } else {
@@ -53,11 +62,9 @@ function FileView(file, container) {
     };
 
     fv.toggleSelect = function() {
-        return fileContainer.classList.toggle('selected');
-    };
-
-    fv.getSelect = function() {
-        return fileContainer.classList.contains('selected');
+        var value = !fv.getSelect();
+        fv.setSelect(value);
+        return value;
     };
 
     function eventHandler(event) {
