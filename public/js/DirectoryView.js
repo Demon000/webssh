@@ -170,6 +170,11 @@ function DirectoryView(container) {
             event.stopPropagation();
         });
 
+        fileView.on('select', function() {
+            var selection = dv.getSelection();
+            dv.emit('select', selection);
+        });
+
         dv.fileViews.push(fileView);
 
         fileView.render();
