@@ -64,6 +64,8 @@
 .file-view-name {
     display: block;
 
+    padding: 4px;
+
     line-height: 24px;
     font-size: 14px;
     text-align: center;
