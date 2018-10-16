@@ -15,6 +15,9 @@ function setFileIcon(icon, file) {
 
 function FileView(file, container) {
     var fv = this;
+    var emitter = new EventEmitter();
+    fv.on = emitter.on.bind(emitter);
+    fv.emit = emitter.emit.bind(emitter);
 
     var fileContainer = document.createElement('div');
     fileContainer.classList.add('file-view');
@@ -55,9 +58,12 @@ function FileView(file, container) {
         return fileContainer.classList.contains('selected');
     };
 
-    fv.on = function(event, fn) {
-        fileContainer.addEventListener(event, fn);
-    };
+    function eventHandler(event) {
+        fv.emit(event.type, event, fv);
+    }
+
+    fileContainer.addEventListener('click', eventHandler);
+    fileContainer.addEventListener('dblclick', eventHandler);
 
     fv.data = file;
 }
