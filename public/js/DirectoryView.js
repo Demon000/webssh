@@ -146,12 +146,12 @@ function DirectoryView(container) {
         fileView.on('click', function(event) {
             onFileViewClick(fileView);
             dv.emitter.emit('click', fileView);
-            event.preventDefault();
+            event.stopPropagation();
         });
 
         fileView.on('dblclick', function(event) {
             dv.emitter.emit('dblclick', fileView);
-            event.preventDefault();
+            event.stopPropagation();
         });
 
         dv.fileViews.push(fileView);
