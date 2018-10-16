@@ -142,6 +142,12 @@ function DirectoryView(container) {
         }
     }
 
+    function onDirectoryViewClick() {
+        if (!dv.inSelection) {
+            dv.cancelSelection();
+        }
+    }
+
     dv.addFileView = function(fileView) {
         fileView.on('click', function(event) {
             onFileViewClick(fileView);
@@ -191,6 +197,10 @@ function DirectoryView(container) {
 
     dv.bindings = [
         new KeyBind({
+            type: 'click',
+            command: onDirectoryViewClick,
+        }),
+        new KeyBind({
             command: onCtrlKeyEvent,
             key: 'Control'
         }),
@@ -217,4 +227,5 @@ function DirectoryView(container) {
 
     window.addEventListener('keydown', dv.handleEvent);
     window.addEventListener('keyup', dv.handleEvent);
+    container.addEventListener('click', dv.handleEvent);
 }
