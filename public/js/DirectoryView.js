@@ -129,7 +129,7 @@ function DirectoryView(container) {
         dv.inSelection = value;
     };
 
-    function onCtrlKeyEvent(event) {
+    function onCtrlKeyPress(event) {
         dv.setInSelection(event.ctrlKey);
     }
 
@@ -201,7 +201,7 @@ function DirectoryView(container) {
             command: onDirectoryViewClick,
         }),
         new KeyBind({
-            command: onCtrlKeyEvent,
+            command: onCtrlKeyPress,
             key: 'Control'
         }),
         new KeyBind({
