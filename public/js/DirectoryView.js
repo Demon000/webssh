@@ -69,29 +69,16 @@ function directoryFirstComparator(a, b) {
 function KeyBind(options) {
     var kb = this;
 
-    function isValid(value) {
-        return value != null;
+    var matchingKeys = ['type', 'ctrlKey', 'key'];
+
+    function match(event) {
+        return matchingKeys.every(function(key) {
+            return options[key] == null || options[key] == event[key];
+        });
     }
 
-    var matchingKeys = {
-        'type': 'type',
-        'ctrlKey': 'ctrlKey',
-        'key': 'key',
-    };
-
-    kb.matches = function(event) {
-        for (var key in matchingKeys) {
-            var eventKey = matchingKeys[key];
-            if (isValid(options[key]) && options[key] != event[eventKey]) {
-                return false;
-            }
-        }
-
-        return true;
-    };
-
     kb.runIfMatches = function(event) {
-        var matches = kb.matches(event);
+        var matches = match(event);
         if (matches) {
             options.command(event);
         }
