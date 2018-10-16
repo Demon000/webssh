@@ -61,7 +61,7 @@ function FileView(file, container) {
     };
 
     function eventHandler(event) {
-        fv.emit(event.type, event, fv);
+        fv.emit(event.type, event);
     }
 
     fileContainer.addEventListener('click', eventHandler);
