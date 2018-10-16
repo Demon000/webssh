@@ -49,4 +49,8 @@
 
         pathUpdate(fileView.data.path);
     });
+
+    directoryView.on('select', function(selection) {
+        console.log(selection);
+    });
 })();
