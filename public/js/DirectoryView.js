@@ -210,7 +210,7 @@ function DirectoryView(container) {
         dv.directory = directory;
     };
 
-    dv.bindings = [
+    var bindings = [
         new KeyBind({
             type: 'click',
             command: onDirectoryViewClick,
@@ -227,20 +227,20 @@ function DirectoryView(container) {
         }),
     ];
 
-    dv.addKeyBind = function(options) {
-        dv.bindings.push(new KeyBind(options));
-    };
-
-    dv.handleEvent = function(event) {
-        dv.bindings.forEach(function(keyBind) {
+    function match(event) {
+        bindings.forEach(function(keyBind) {
             var matches = keyBind.runIfMatches(event);
             if (matches) {
                 event.preventDefault();
             }
         });
-    };
+    }
 
-    window.addEventListener('keydown', dv.handleEvent);
-    window.addEventListener('keyup', dv.handleEvent);
-    container.addEventListener('click', dv.handleEvent);
+    function listenForKeyBind(source, type) {
+        source.addEventListener(type, match);
+    }
+
+    listenForKeyBind(window, 'keydown');
+    listenForKeyBind(window, 'keyup');
+    listenForKeyBind(container, 'click');
 }
