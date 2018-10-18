@@ -75,11 +75,11 @@ function SSHTerminal(container) {
             return;
         }
 
-        var selection = xterm.getSelection();
-        if (!selection) {
+        if (!xterm.hasSelection()) {
             return;
         }
 
+        var selection = xterm.getSelection();
         xterm.write(selection);
         event.stopPropagation();
     });
