@@ -70,5 +70,19 @@ function SSHTerminal(container) {
         t.emitter.emit('error', message);
     });
 
+    window.addEventListener('click', function(event) {
+        if (event.button != 1) {
+            return;
+        }
+
+        var selection = xterm.getSelection();
+        if (!selection) {
+            return;
+        }
+
+        xterm.write(selection);
+        event.stopPropagation();
+    });
+
     window.addEventListener('resize', resize);
 }
