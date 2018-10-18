@@ -70,17 +70,17 @@ function SSHTerminal(container) {
         t.emitter.emit('error', message);
     });
 
+    var lastSelection;
+    xterm.on('selection', function() {
+        lastSelection = xterm.getSelection();
+    });
+
     window.addEventListener('click', function(event) {
         if (event.button != 1) {
             return;
         }
 
-        if (!xterm.hasSelection()) {
-            return;
-        }
-
-        var selection = xterm.getSelection();
-        xterm.write(selection);
+        xterm.write(lastSelection);
         event.stopPropagation();
     });
 
