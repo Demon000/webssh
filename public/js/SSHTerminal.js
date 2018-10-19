@@ -84,7 +84,7 @@ function SSHTerminal(container) {
             return;
         }
 
-        xterm.write(lastSelection);
+        socket.emit('Terminal:data', lastSelection);
         event.stopPropagation();
     });
 
