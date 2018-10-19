@@ -80,6 +80,10 @@ function SSHTerminal(container) {
             return;
         }
 
+        if (!lastSelection) {
+            return;
+        }
+
         xterm.write(lastSelection);
         event.stopPropagation();
     });
