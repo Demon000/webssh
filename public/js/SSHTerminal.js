@@ -17,12 +17,14 @@ function SSHTerminal(container) {
         term: 'xterm-256color'
     };
 
-    t.emitter = new EventEmitter();
+    var emitter = new EventEmitter();
+    t.on = emitter.on.bind(emitter);
+    t.emit = emitter.emit.bind(emitter);
 
     function resize() {
         xterm.fit();
         socket.emit('Terminal:size', xterm.rows, xterm.cols);
-        t.emitter.emit('resize');
+        t.emit('resize');
     }
 
     t.attach = function() {
@@ -30,7 +32,7 @@ function SSHTerminal(container) {
         .loadWebfontAndOpen(container)
         .then(function() {
             resize();
-            t.emitter.emit('attach');
+            t.emit('attach');
         });
     };
 
@@ -41,7 +43,7 @@ function SSHTerminal(container) {
     t.init = function() {
         socket.emit('main:init', 'Terminal', options, function(success) {
             if (success) {
-                t.emitter.emit('init', success);
+                t.emit('init', success);
             }
         });
     };
@@ -51,11 +53,11 @@ function SSHTerminal(container) {
     };
 
     socket.on('connect', function() {
-        t.emitter.emit('connect');
+        t.emit('connect');
     });
 
     socket.on('disconnect', function() {
-        t.emitter.emit('disconnect');
+        t.emit('disconnect');
     });
 
     xterm.on('data', function(data) {
@@ -67,7 +69,7 @@ function SSHTerminal(container) {
     });
 
     socket.on('Terminal:error', function(message) {
-        t.emitter.emit('error', message);
+        t.emit('error', message);
     });
 
     var lastSelection;

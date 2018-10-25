@@ -22,15 +22,15 @@ function setConnectionStatus(status) {
     var terminalContainer = document.querySelector('#terminal');
     var terminal = new SSHTerminal(terminalContainer);
 
-    terminal.emitter.on('connect', function() {
+    terminal.on('connect', function() {
         terminal.init();
     });
 
-    terminal.emitter.on('init', function() {
+    terminal.on('init', function() {
         terminal.attach();
     });
 
-    terminal.emitter.on('attach', function() {
+    terminal.on('attach', function() {
         terminal.setOption('theme', {
             background: '#242424'
         });
@@ -38,7 +38,7 @@ function setConnectionStatus(status) {
         setConnectionStatus('connected');
     });
 
-    terminal.emitter.on('disconnect', function() {
+    terminal.on('disconnect', function() {
         setConnectionStatus('disconnected');
     });
 
