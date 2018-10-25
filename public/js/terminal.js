@@ -14,7 +14,7 @@ function setConnectionStatus(status) {
         statusContainer.classList.add('error');
         statusContainer.classList.add('visible');
         statusText.innerHTML = 'Connection timed out!';
-    break;
+        break;
     }
 }
 
