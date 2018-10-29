@@ -76,6 +76,12 @@
     var connectButton = document.querySelector('#connect');
     if (connectButton) {
         connectButton.addEventListener('click', doAuth);
+
+        window.addEventListener('keypress', function(event) {
+            if (event.key == 'Enter') {
+                doAuth();
+            }
+        });
     }
 
     function doLogout() {
