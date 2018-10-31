@@ -1,5 +1,5 @@
 (function() {
-    var fileExplorer = new FileExplorer().init();
+    var fileExplorer = new SSHFileExplorer().init();
 
     var directoryViewContainer = document.querySelector('#directory-view');
     var directoryView = new DirectoryView(directoryViewContainer);

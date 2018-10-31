@@ -1,4 +1,4 @@
-function FileExplorer() {
+function SSHFileExplorer() {
     var fe = this;
 
     var socket = io();
