@@ -19,72 +19,48 @@
 </head>
 <body>
     <div id="content">
-        <div id="auth">
-            <div class="logo">
-                <span>Web</span><span class="color">SSH</span>
+        <div id="main-logo" class="logo">
+            <span>Web</span><span class="color">SSH</span>
+        </div>
+        <div id="login-fields">
+            <div class="input-group">
+                <label>Server</label>
+                <input id="server" type="text">
             </div>
-            <% if (credentials) { %>
-                <div id="check">
-                    <% include check-icon %>
+            <div class="input-group">
+                <label>Username</label>
+                <input id="username" type="text">
+            </div>
+            <div class="input-group has-switch">
+                <label>Use private key</label>
+                <div class="switch">
+                    <input id="use-private-key" type="checkbox">
+                    <label for="use-private-key"></label>
                 </div>
-                <p class="info">
-                    You're logged in on
-                    <span class="word"><%= credentials.server %></span>
-                    as
-                    <span class="word"><%= credentials.username %></span>.
-                    <a id="logout" class="word">Logout</span>?
-                </p>
-                <p class="info">
-                    Press the buttons bellow to open a terminal or a file explorer!
-                </p>
-                <div id="actions" >
-                    <a id="terminal" class="action-icon" href="/terminal" target="_blank">
-                        <% include terminal-icon %>
-                    </a>
-                    <a id="file-explorer" class="action-icon" href="/file-explorer#/home/<%= credentials.username %>" target="_blank">
-                        <% include file-explorer-icon %>
-                    </a>
-                </div>
-            <% } else { %>
+            </div>
+            <div id="password-fields" class="visible">
                 <div class="input-group">
-                    <label>Server</label>
-                    <input id="server" type="text">
+                    <label>Password</label>
+                    <input id="password" type="password"><br>
+                </div>
+            </div>
+            <div id="private-key-fields">
+                <div class="input-group">
+                    <label>Passphrase (optional)</label>
+                    <input id="passphrase" type="password"><br>
                 </div>
                 <div class="input-group">
-                    <label>Username</label>
-                    <input id="username" type="text">
+                    <label>Private key</label>
+                    <textarea id="private-key"></textarea><br>
                 </div>
-                <div class="input-group has-switch">
-                    <label>Use private key</label>
-                    <div class="switch">
-                        <input id="use-private-key" type="checkbox">
-                        <label for="use-private-key"></label>
-                    </div>
-                </div>
-                <div id="password-fields" class="visible">
-                    <div class="input-group">
-                        <label>Password</label>
-                        <input id="password" type="password"><br>
-                    </div>
-                </div>
-                <div id="private-key-fields">
-                    <div class="input-group">
-                        <label>Passphrase (optional)</label>
-                        <input id="passphrase" type="password"><br>
-                    </div>
-                    <div class="input-group">
-                        <label>Private key</label>
-                        <textarea id="private-key"></textarea><br>
-                    </div>
-                </div>
-                <div id="actions">
-                    <button id="connect">Connect</button>
-                </div>
-                <div id="notes">
-                    <p id="progress-note">Please wait, this might take a few seconds...</p>
-                    <p id="error-note">Failed to connect!</p>
-                </div>
-            <% } %>
+            </div>
+            <div id="actions">
+                <button id="connect">Connect</button>
+            </div>
+            <div id="notes">
+                <p id="progress-note">Please wait, this might take a few seconds...</p>
+                <p id="error-note">Failed to connect!</p>
+            </div>
         </div>
     </div>
 

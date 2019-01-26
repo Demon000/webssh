@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#content {
+    width: 100%;
+    max-width: 512px;
+
+    padding: 16px;
+}
+#content .info {
+    text-align: center;
+}
+#content .info .word {
+    color: #5680e9;
+}
+
+#logout {
+    cursor: pointer;
+}
+
+#actions {
+    text-align: center;
+}
+
+#check {
+    text-align: center;
+}
+#check svg {
+    width: 96px;
+    height: 96px;
+
+    display: inline-block;
+}
+#check path {
+    fill: #86c232;
+}
+
+.action-icon {
+    text-align: center;
+}
+.action-icon svg {
+    width: 48px;
+    height: 48px;
+}
+.action-icon path {
+    fill: #5680e9;
+}

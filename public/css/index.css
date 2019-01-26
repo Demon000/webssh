@@ -1,28 +1,27 @@
-#content {
-    height: 100%;
-
+body {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.logo {
-    font-size: 64px;
-}
-
-#auth {
-    max-width: 512px;
+#content {
     width: 100%;
-
-    position: relative;
+    max-width: 512px;
 
     padding: 16px;
 }
-#auth .info {
-    text-align: center;
+
+#login-fields {
+    width: 100%;
+
+    position: relative;
 }
-#auth .info .word {
-    color: #5680e9;
+#password-fields, #private-key-fields {
+    display: none;
+}
+
+#password-fields.visible, #private-key-fields.visible {
+    display: block;
 }
 
 #actions {
@@ -40,34 +39,6 @@
 #connect:hover {
     background: #5680e9;
     color: #ffffff;
-}
-
-#logout {
-    cursor: pointer;
-}
-
-#check {
-    text-align: center;
-}
-#check svg {
-    width: 96px;
-    height: 96px;
-
-    display: inline-block;
-}
-#check path {
-    fill: #86c232;
-}
-
-.action-icon {
-    text-align: center;
-}
-.action-icon svg {
-    width: 48px;
-    height: 48px;
-}
-.action-icon path {
-    fill: #5680e9;
 }
 
 #notes {
@@ -91,12 +62,4 @@
 
 #error-note {
     color: #fc4445;
-}
-
-#password-fields, #private-key-fields {
-    display: none;
-}
-
-#password-fields.visible, #private-key-fields.visible {
-    display: block;
 }

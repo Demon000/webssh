@@ -195,6 +195,10 @@ button:disabled {
     color: #5680e9;
 }
 
+#main-logo {
+    font-size: 64px;
+}
+
 /* Navbar */
 #navbar {
     width: 100%;

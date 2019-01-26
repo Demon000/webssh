@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/lobby.css" />
+    <title>WebSSH</title>
+
+    <!-- Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,700,700i" rel="stylesheet">
+
+    <!-- Nunito -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:600" rel="stylesheet">
+
+    <!-- Socket.IO -->
+    <script src="/external/socket.io-client/dist/socket.io.js"></script>
+</head>
+<body>
+    <div id="content">
+        <div id="main-logo" class="logo">
+            <span>Web</span><span class="color">SSH</span>
+        </div>
+        <div id="check">
+            <% include check-icon %>
+        </div>
+        <p class="info">
+            You're logged in on
+            <span class="word"><%= credentials.server %></span>
+            as
+            <span class="word"><%= credentials.username %></span>.
+            <a id="logout" class="word">Logout</span>?
+        </p>
+        <p class="info">
+            Press the buttons bellow to open a terminal or a file explorer!
+        </p>
+        <div id="actions" >
+            <a id="terminal" class="action-icon" href="/terminal" target="_blank">
+                <% include terminal-icon %>
+            </a>
+            <a id="file-explorer" class="action-icon" href="/file-explorer#/home/<%= credentials.username %>" target="_blank">
+                <% include file-explorer-icon %>
+            </a>
+        </div>
+    </div>
+
+    <script src="/js/SSHAuth.js"></script>
+    <script src="/js/lobby.js"></script>
+</body>
+</html>

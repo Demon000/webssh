@@ -71,7 +71,7 @@ io.on('connect', function(socket) {
     });
 });
 
-function isAuthenticated(req, res, next) {
+function isLoggedIn(req, res, next) {
     if (req.session.credentials) {
         return next();
     }
@@ -80,22 +80,26 @@ function isAuthenticated(req, res, next) {
 }
 
 app.get('/', function(req, res) {
-    res.render('index', {
-        credentials: req.session.credentials
-    });
+    if (req.session.credentials) {
+        res.render('lobby', {
+            credentials: req.session.credentials
+        });
+    } else {
+        res.render('index');
+    }
 });
 
-app.get('/terminal', isAuthenticated, function(req, res) {
+app.get('/terminal', isLoggedIn, function(req, res) {
     res.render('terminal', {
         credentials: req.session.credentials
     });
 });
 
-app.get('/help', isAuthenticated, function(req, res) {
+app.get('/help', isLoggedIn, function(req, res) {
     res.render('help');
 });
 
-app.get('/file-explorer', isAuthenticated, function(req, res) {
+app.get('/file-explorer', isLoggedIn, function(req, res) {
     res.render('file-explorer', {
         credentials: req.session.credentials
     });

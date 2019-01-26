@@ -1,27 +1,26 @@
 (function() {
-    var usePrivateKeyInput = document.querySelector('#use-private-key');
-
-    function usePrivateKey() {
-        return usePrivateKeyInput.checked;
-    }
-
-    function updateAvailableFields() {
+    function setAvailableFields(state) {
         var passwordFields = document.querySelector('#password-fields');
         var privateKeyFields = document.querySelector('#private-key-fields');
 
-        if (usePrivateKey()) {
-            passwordFields.classList.remove('visible');
-            privateKeyFields.classList.add('visible');
-        } else {
+        switch (state) {
+        case 'password':
             passwordFields.classList.add('visible');
             privateKeyFields.classList.remove('visible');
+            break;
+        case 'key':
+            passwordFields.classList.remove('visible');
+            privateKeyFields.classList.add('visible');
+            break;
         }
     }
 
-    if (usePrivateKeyInput) {
-        usePrivateKeyInput.addEventListener('change', updateAvailableFields);
-        updateAvailableFields();
-    }
+    var usePrivateKeyInput = document.querySelector('#use-private-key');
+    usePrivateKeyInput.addEventListener('change', function(event) {
+        var state = usePrivateKeyInput.checked ? 'key' : 'password';
+        setAvailableFields(state);
+    });
+    usePrivateKeyInput.checked = false;
 
     function setNotes(state) {
         var progressNote = document.querySelector('#progress-note');
@@ -54,7 +53,7 @@
             username: usernameInput.value
         };
 
-        if (usePrivateKey()) {
+        if (usePrivateKeyInput.checked) {
             credentials.passphrase = passphraseInput.value;
             credentials.privateKey = privateKeyInput.value;
         } else {
@@ -74,26 +73,11 @@
     }
 
     var connectButton = document.querySelector('#connect');
-    if (connectButton) {
-        connectButton.addEventListener('click', doLogin);
+    connectButton.addEventListener('click', doLogin);
 
-        window.addEventListener('keypress', function(event) {
-            if (event.key == 'Enter') {
-                doLogin();
-            }
-        });
-    }
-
-    function doLogout() {
-        SSHAuth.logout(function(success) {
-            if (success) {
-                location.reload();
-            }
-        });
-    }
-
-    var logoutButton = document.querySelector('#logout');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', doLogout);
-    }
+    window.addEventListener('keypress', function(event) {
+        if (event.key == 'Enter') {
+            doLogin();
+        }
+    });
 })();
