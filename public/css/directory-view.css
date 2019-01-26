@@ -1,0 +1,61 @@
+
+#directory-view {
+    width: 100%;
+    height: calc(100% - 32px - 42px);
+
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+
+    overflow: auto;
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.file-view {
+    display: inline-block;
+
+    position: relative;
+
+    width: 96px;
+
+    margin: 24px;
+
+    border-radius: 3px;
+}
+
+.file-view.hidden {
+    display: none;
+}
+
+.hidden-visible .file-view.hidden {
+    display: inline-block;
+}
+
+.file-view.selected {
+    box-shadow: 0 0 0 1px #90caf9;
+    background: rgba(144, 202, 249, 0.25);
+}
+
+.file-view-icon {
+    width: 100%;
+
+    display: block;
+
+    stroke-width: 0;
+}
+
+.file-view-name {
+    display: block;
+
+    padding: 4px;
+
+    line-height: 24px;
+    font-size: 14px;
+    text-align: center;
+    word-break: break-all;
+}
