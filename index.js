@@ -91,7 +91,7 @@ app.get('/terminal', isAuthenticated, function(req, res) {
     });
 });
 
-app.get('/help', function(req, res) {
+app.get('/help', isAuthenticated, function(req, res) {
     res.render('help');
 });
 
