@@ -72,8 +72,9 @@ io.on('connect', function(socket) {
 });
 
 function isAuthenticated(req, res, next) {
-    if (req.session.auth)
+    if (req.session.auth) {
         return next();
+    }
 
     res.redirect('/');
 }
