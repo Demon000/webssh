@@ -23,15 +23,15 @@
             <div class="logo">
                 <span>Web</span><span class="color">SSH</span>
             </div>
-            <% if (auth) { %>
+            <% if (credentials) { %>
                 <div id="check">
                     <% include check-icon %>
                 </div>
                 <p class="info">
                     You're logged in on
-                    <span class="word"><%= auth.server %></span>
+                    <span class="word"><%= credentials.server %></span>
                     as
-                    <span class="word"><%= auth.username %></span>.
+                    <span class="word"><%= credentials.username %></span>.
                     <a id="logout" class="word">Logout</span>?
                 </p>
                 <p class="info">
@@ -41,7 +41,7 @@
                     <a id="terminal" class="action-icon" href="/terminal" target="_blank">
                         <% include terminal-icon %>
                     </a>
-                    <a id="file-explorer" class="action-icon" href="/file-explorer#/home/<%= auth.username %>" target="_blank">
+                    <a id="file-explorer" class="action-icon" href="/file-explorer#/home/<%= credentials.username %>" target="_blank">
                         <% include file-explorer-icon %>
                     </a>
                 </div>

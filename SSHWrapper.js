@@ -1,7 +1,7 @@
 const SSH = require('ssh2').Client;
 const SFTPStream = require('./SFTPStreamWrapper');
 
-function SFTPConnection(auth, options, streamFn) {
+function SFTPConnection(credentials, options, streamFn) {
     const connection = new SSH();
     const fn = streamFn.bind(connection);
 
@@ -10,11 +10,11 @@ function SFTPConnection(auth, options, streamFn) {
         connection.sftp(fn);
     })
     .on('error', fn)
-    .connect(auth);
+    .connect(credentials);
 }
 
-function FileExplorer(socket, auth, options, streamFn) {
-    SFTPConnection(auth, options, function(err, stream) {
+function FileExplorer(socket, credentials, options, streamFn) {
+    SFTPConnection(credentials, options, function(err, stream) {
         const connection = this;
 
         streamFn.call(connection, stream);
@@ -30,7 +30,7 @@ function FileExplorer(socket, auth, options, streamFn) {
     });
 }
 
-function SSHConnection(auth, options, streamFn) {
+function SSHConnection(credentials, options, streamFn) {
     const connection = new SSH();
     const fn = streamFn.bind(connection);
 
@@ -39,11 +39,11 @@ function SSHConnection(auth, options, streamFn) {
         connection.shell(options, fn);
     })
     .on('error', fn)
-    .connect(auth);
+    .connect(credentials);
 }
 
-function checkAuth(auth, successFn) {
-    SSHConnection(auth, {}, function(err, stream) {
+function checkCredentials(credentials, successFn) {
+    SSHConnection(credentials, {}, function(err, stream) {
         const connection = this;
         const success = stream ? true : false;
 
@@ -53,7 +53,7 @@ function checkAuth(auth, successFn) {
     });
 }
 
-function Terminal(socket, auth, options, streamFn) {
+function Terminal(socket, credentials, options, streamFn) {
     socket.emitData = function(data) {
         socket.emit('Terminal:data', data.toString('utf-8'));
     };
@@ -70,7 +70,7 @@ function Terminal(socket, auth, options, streamFn) {
         socket.on('Terminal:size', sizeFn);
     };
 
-    SSHConnection(auth, options, function(err, stream) {
+    SSHConnection(credentials, options, function(err, stream) {
         const connection = this;
 
         streamFn.call(connection, stream);
@@ -108,5 +108,5 @@ module.exports = {
         FileExplorer,
         Terminal,
     },
-    checkAuth,
+    checkCredentials,
 };

@@ -42,28 +42,28 @@
         }
     }
 
-    function doAuth() {
+    function doLogin() {
         var serverInput = document.querySelector('#server');
         var usernameInput = document.querySelector('#username');
         var passwordInput = document.querySelector('#password');
         var passphraseInput = document.querySelector('#passphrase');
         var privateKeyInput = document.querySelector('#private-key');
 
-        var auth = {
+        var credentials = {
             server: serverInput.value,
             username: usernameInput.value
         };
 
         if (usePrivateKey()) {
-            auth.passphrase = passphraseInput.value;
-            auth.privateKey = privateKeyInput.value;
+            credentials.passphrase = passphraseInput.value;
+            credentials.privateKey = privateKeyInput.value;
         } else {
-            auth.password = passwordInput.value;
+            credentials.password = passwordInput.value;
         }
 
         setNotes('progress');
 
-        SSHAuth.login(auth, function(success) {
+        SSHAuth.login(credentials, function(success) {
             if (success) {
                 location.reload();
                 setNotes();
@@ -75,11 +75,11 @@
 
     var connectButton = document.querySelector('#connect');
     if (connectButton) {
-        connectButton.addEventListener('click', doAuth);
+        connectButton.addEventListener('click', doLogin);
 
         window.addEventListener('keypress', function(event) {
             if (event.key == 'Enter') {
-                doAuth();
+                doLogin();
             }
         });
     }

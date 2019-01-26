@@ -31,19 +31,19 @@ function getServer(name) {
     return Config.servers[name] || {};
 }
 
-function fillAuth(auth) {
-    return Object.assign(auth, getServer(auth.server));
+function fillServer(credentials) {
+    return Object.assign(credentials, getServer(credentials.server));
 }
 
 io.on('connect', function(socket) {
-    socket.on('main:auth', function(auth, successFn) {
+    socket.on('main:login', function(credentials, successFn) {
         const session = socket.request.session;
 
-        fillAuth(auth);
+        fillServer(credentials);
 
-        SSH.checkAuth(auth, function(success) {
+        SSH.checkCredentials(credentials, function(success) {
             if (success) {
-                session.auth = auth;
+                session.credentials = credentials;
                 session.save();
             }
 
@@ -51,28 +51,28 @@ io.on('connect', function(socket) {
         });
     });
 
-    socket.on('main:init', function(app, options, successFn) {
-        const session = socket.request.session;
-
-        if (!session.auth) {
-            successFn(false);
-        }
-
-        SSH.apps[app](socket, session.auth, options, function(stream) {
-            const success = stream ? true : false;
-            successFn(success);
-        });
-    });
-
-    socket.on('main:deauth', function(successFn) {
+    socket.on('main:logout', function(successFn) {
         const session = socket.request.session;
         session.destroy();
         successFn(true);
     });
+
+    socket.on('main:init', function(app, options, successFn) {
+        const session = socket.request.session;
+
+        if (!session.credentials) {
+            successFn(false);
+        }
+
+        SSH.apps[app](socket, session.credentials, options, function(stream) {
+            const success = stream ? true : false;
+            successFn(success);
+        });
+    });
 });
 
 function isAuthenticated(req, res, next) {
-    if (req.session.auth) {
+    if (req.session.credentials) {
         return next();
     }
 
@@ -81,13 +81,13 @@ function isAuthenticated(req, res, next) {
 
 app.get('/', function(req, res) {
     res.render('index', {
-        auth: req.session.auth
+        credentials: req.session.credentials
     });
 });
 
 app.get('/terminal', isAuthenticated, function(req, res) {
     res.render('terminal', {
-        auth: req.session.auth
+        credentials: req.session.credentials
     });
 });
 
@@ -97,7 +97,7 @@ app.get('/help', isAuthenticated, function(req, res) {
 
 app.get('/file-explorer', isAuthenticated, function(req, res) {
     res.render('file-explorer', {
-        auth: req.session.auth
+        credentials: req.session.credentials
     });
 });
 

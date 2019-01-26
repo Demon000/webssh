@@ -1,10 +1,10 @@
 var SSHAuth = {
-    login: function(auth, successFn) {
+    login: function(credentials, successFn) {
         var socket = io();
-        socket.emit('main:auth', auth, successFn);
+        socket.emit('main:login', credentials, successFn);
     },
     logout: function(successFn) {
         var socket = io();
-        socket.emit('main:deauth', successFn);
+        socket.emit('main:logout', successFn);
     }
 };
