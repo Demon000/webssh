@@ -7,10 +7,6 @@ function SSHTerminal(container, options) {
 
     var xterm = new Terminal(options);
 
-    var options = {
-        term: 'xterm-256color'
-    };
-
     var emitter = new EventEmitter();
     t.on = emitter.on.bind(emitter);
     t.emit = emitter.emit.bind(emitter);
