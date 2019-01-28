@@ -13,7 +13,7 @@ function setConnectionStatus(status) {
     case 'disconnected':
         statusContainer.classList.add('error');
         statusContainer.classList.add('visible');
-        statusText.innerHTML = 'Connection timed out!';
+        statusText.innerHTML = 'Disconnected. Trying to reconnect...';
         break;
     }
 }
@@ -39,6 +39,10 @@ function setConnectionStatus(status) {
     terminal.on('attach', function() {
         terminal.focus();
         setConnectionStatus('connected');
+    });
+
+    terminal.on('reconnect', function() {
+         setConnectionStatus('connected');
     });
 
     terminal.on('disconnect', function() {
