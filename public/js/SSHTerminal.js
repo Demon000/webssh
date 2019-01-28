@@ -48,7 +48,7 @@ function SSHTerminal(container, options) {
             t.init();
             firstConnect = false;
         } else {
-            t.emit('first-connect');
+            t.emit('connect');
         }
     });
 
