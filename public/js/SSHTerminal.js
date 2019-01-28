@@ -31,6 +31,10 @@ function SSHTerminal(container, options) {
     };
 
     t.init = function() {
+        var options = {
+            term: 'xterm-256color',
+        };
+
         socket.emit('main:init', 'Terminal', options, function(success) {
             if (!success) {
                 return;

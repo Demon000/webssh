@@ -23,7 +23,6 @@ function setConnectionStatus(status) {
     var terminal = new SSHTerminal(container, {
         fontFamily: 'Roboto Mono',
         fontSize: 14,
-        term: 'xterm-256color',
         theme: {
             background: '#242424',
         },
