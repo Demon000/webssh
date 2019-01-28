@@ -47,10 +47,6 @@ function SSHTerminal(container, options) {
         });
     };
 
-    t.setOption = function(key, value) {
-        xterm.setOption(key, value);
-    };
-
     socket.on('connect', function() {
         t.emit('connect');
     });
