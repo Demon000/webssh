@@ -39,9 +39,11 @@ function SSHTerminal(container, options) {
 
     t.init = function() {
         socket.emit('main:init', 'Terminal', options, function(success) {
-            if (success) {
-                t.emit('init', success);
+            if (!success) {
+                return;
             }
+
+            t.emit('init', success);
         });
     };
 
