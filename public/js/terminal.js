@@ -28,13 +28,6 @@ function setConnectionStatus(status) {
         },
     });
 
-    terminal.on('connect', function() {
-        terminal.init();
-    });
-
-    terminal.on('init', function() {
-        terminal.attach();
-    });
 
     terminal.on('attach', function() {
         terminal.focus();

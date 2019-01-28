@@ -41,11 +41,19 @@ function SSHTerminal(container, options) {
             }
 
             t.emit('init', success);
+            t.attach();
         });
     };
 
+    var firstConnect = true;
     socket.on('connect', function() {
-        t.emit('connect');
+        if (firstConnect) {
+            t.emit('first-connect');
+            t.init();
+            firstConnect = false;
+        } else {
+            t.emit('first-connect');
+        }
     });
 
     socket.on('reconnect', function() {
