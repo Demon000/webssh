@@ -44,9 +44,9 @@ function SSHTerminal(container, options) {
     var firstConnect = true;
     socket.on('connect', function() {
         if (firstConnect) {
+            firstConnect = false;
             t.emit('first-connect');
             t.init();
-            firstConnect = false;
         } else {
             t.emit('connect');
         }
