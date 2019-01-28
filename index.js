@@ -105,8 +105,4 @@ app.get('/file-explorer', isLoggedIn, function(req, res) {
     });
 });
 
-app.get('/servers', function(req, res) {
-    res.json(Object.keys(Config.servers));
-});
-
 server.listen(Config.port);
