@@ -3,10 +3,7 @@ Terminal.applyAddon(fit);
 
 function SSHTerminal(container, options) {
     var t = this;
-
-    var socket = io({
-        reconnection: false
-    });
+    var socket = io();
 
     var xterm = new Terminal(options);
 
