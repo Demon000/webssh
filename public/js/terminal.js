@@ -19,8 +19,14 @@ function setConnectionStatus(status) {
 }
 
 (function() {
-    var terminalContainer = document.querySelector('#terminal');
-    var terminal = new SSHTerminal(terminalContainer);
+    var container = document.querySelector('#terminal');
+    var terminal = new SSHTerminal(container, {
+        fontFamily: 'Roboto Mono',
+        fontSize: 14,
+        theme: {
+            background: '#242424',
+        },
+    });
 
     terminal.on('connect', function() {
         terminal.init();
@@ -31,9 +37,6 @@ function setConnectionStatus(status) {
     });
 
     terminal.on('attach', function() {
-        terminal.setOption('theme', {
-            background: '#242424'
-        });
         terminal.focus();
         setConnectionStatus('connected');
     });

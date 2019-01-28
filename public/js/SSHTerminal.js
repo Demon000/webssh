@@ -1,17 +1,14 @@
 Terminal.applyAddon(TerminalFontLoader);
 Terminal.applyAddon(fit);
 
-function SSHTerminal(container) {
+function SSHTerminal(container, options) {
     var t = this;
 
     var socket = io({
         reconnection: false
     });
 
-    var xterm = new Terminal({
-        fontFamily: 'Roboto Mono',
-        fontSize: 14
-    });
+    var xterm = new Terminal(options);
 
     var options = {
         term: 'xterm-256color'
