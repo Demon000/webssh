@@ -51,6 +51,10 @@ function SSHTerminal(container, options) {
         t.emit('connect');
     });
 
+    socket.on('reconnect', function() {
+        t.emit('reconnect');
+    });
+
     socket.on('disconnect', function() {
         t.emit('disconnect');
     });
