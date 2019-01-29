@@ -8,6 +8,7 @@ function SSHTerminal(container, options) {
     var xterm = new Terminal(options);
     var firstConnect = true;
     var terminalId = -1;
+    var attached = false;
     var open = false;
 
     var emitter = new EventEmitter();
@@ -23,6 +24,10 @@ function SSHTerminal(container, options) {
             return;
         }
 
+        if (!attached) {
+            return;
+        }
+
         xterm.fit();
         socket.emit('size', xterm.rows, xterm.cols);
         t.emit('resize');
@@ -34,6 +39,7 @@ function SSHTerminal(container, options) {
                 return;
             }
 
+            attached = true;
             t.emit('attach');
             resize();
         });
