@@ -11,18 +11,24 @@ function fillServer(credentials) {
 
 const router = Router();
 
-router.post('/login', function(req, res) {
+router.post('/login', async function(req, res) {
     const credentials = fillServer(req.body);
+    const connection = new SSH.Connection();
 
-    SSH.Auth(credentials, function(success) {
-        if (success) {
-            req.session.credentials = credentials;
-            req.session.save();
-        }
+    let success = true;
+    try {
+        await connection.connect(credentials);
+    } catch (err) {
+        success = false;
+    }
 
-        res.send({
-            success,
-        });
+    if (success) {
+        req.session.credentials = credentials;
+        req.session.save();
+    }
+
+    res.send({
+        success,
     });
 });
 
