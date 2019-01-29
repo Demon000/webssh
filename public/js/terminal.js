@@ -34,10 +34,6 @@ function setConnectionStatus(status) {
         setConnectionStatus('connected');
     });
 
-    terminal.on('reconnect', function() {
-         setConnectionStatus('connected');
-    });
-
     terminal.on('disconnect', function() {
         setConnectionStatus('disconnected');
     });

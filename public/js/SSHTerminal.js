@@ -7,7 +7,8 @@ function SSHTerminal(container, options) {
 
     var xterm = new Terminal(options);
     var firstConnect = true;
-    var attached = false;
+    var terminalId = -1;
+    var open = false;
 
     var emitter = new EventEmitter();
     t.on = emitter.on.bind(emitter);
@@ -18,7 +19,7 @@ function SSHTerminal(container, options) {
     };
 
     function resize() {
-        if (!attached) {
+        if (!open) {
             return;
         }
 
@@ -28,31 +29,38 @@ function SSHTerminal(container, options) {
     }
 
     function attach() {
-        xterm
-        .loadWebfontAndOpen(container)
-        .then(function() {
-            attached = true;
-            t.emit('attach');
-            resize();
-        });
-    }
-
-    function init() {
-        socket.emit('init', options, function(success) {
+        socket.emit('attach-socket', terminalId, function(success) {
             if (!success) {
                 return;
             }
 
-            t.emit('init');
+            t.emit('attach');
+        });
+    }
+
+    function init() {
+        socket.emit('init-terminal', options, function(id) {
+            if (!id) {
+                return;
+            }
+
+            terminalId = id;
             attach();
         });
     }
+
+    t.on('connect', function() {
+        init();
+    });
+
+    t.on('reconnect', function() {
+        attach();
+    });
 
     socket.on('connect', function() {
         if (firstConnect) {
             firstConnect = false;
             t.emit('connect');
-            init();
         } else {
             t.emit('reconnect');
         }
@@ -93,4 +101,12 @@ function SSHTerminal(container, options) {
     });
 
     window.addEventListener('resize', resize);
+
+    xterm
+    .loadWebfontAndOpen(container)
+    .then(function() {
+        open = true;
+        t.emit('open');
+        resize();
+    });
 }
