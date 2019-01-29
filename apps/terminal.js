@@ -1,9 +1,13 @@
 const SSH = require('../lib/SSHWrapper');
 
 function terminal(namespace) {
-    namespace.on('connection', function(socket) {
-        socket.on('init', async function(options, successFn) {
-            const credentials = socket.request.session.credentials;
+    namespace.on('connection', (socket) => {
+        const credentials = socket.request.session.credentials;
+        if (!credentials) {
+            socket.disconnect();
+        }
+
+        socket.on('init', async (options, successFn) => {
             const terminal = new SSH.Terminal();
             await terminal.connect(credentials);
             await terminal.shell(options);
