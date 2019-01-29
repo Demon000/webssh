@@ -36,6 +36,6 @@ app.use('/auth', auth);
 
 app.set('view engine', 'ejs');
 const web = require('./apps/web');
-app.use(web);
+app.use('/', web);
 
 server.listen(ExpressConfig.port);
