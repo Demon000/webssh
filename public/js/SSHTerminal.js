@@ -3,57 +3,59 @@ Terminal.applyAddon(fit);
 
 function SSHTerminal(container, options) {
     var t = this;
-    var socket = io();
+    var socket = io('/terminal');
 
     var xterm = new Terminal(options);
+    var firstConnect = true;
+    var attached = false;
 
     var emitter = new EventEmitter();
     t.on = emitter.on.bind(emitter);
     t.emit = emitter.emit.bind(emitter);
 
-    function resize() {
-        xterm.fit();
-        socket.emit('Terminal:size', xterm.rows, xterm.cols);
-        t.emit('resize');
-    }
-
-    t.attach = function() {
-        xterm
-        .loadWebfontAndOpen(container)
-        .then(function() {
-            resize();
-            t.emit('attach');
-        });
-    };
-
     t.focus = function() {
         xterm.focus();
     };
 
-    t.init = function() {
-        socket.emit('main:init', 'Terminal', options, function(success) {
+    function resize() {
+        if (!attached) {
+            return;
+        }
+
+        xterm.fit();
+        socket.emit('size', xterm.rows, xterm.cols);
+        t.emit('resize');
+    }
+
+    function attach() {
+        xterm
+        .loadWebfontAndOpen(container)
+        .then(function() {
+            attached = true;
+            t.emit('attach');
+            resize();
+        });
+    }
+
+    function init() {
+        socket.emit('init', options, function(success) {
             if (!success) {
                 return;
             }
 
-            t.emit('init', success);
-            t.attach();
+            t.emit('init');
+            attach();
         });
-    };
+    }
 
-    var firstConnect = true;
     socket.on('connect', function() {
         if (firstConnect) {
             firstConnect = false;
-            t.emit('first-connect');
-            t.init();
-        } else {
             t.emit('connect');
+            init();
+        } else {
+            t.emit('reconnect');
         }
-    });
-
-    socket.on('reconnect', function() {
-        t.emit('reconnect');
     });
 
     socket.on('disconnect', function() {
@@ -61,15 +63,15 @@ function SSHTerminal(container, options) {
     });
 
     xterm.on('data', function(data) {
-        socket.emit('Terminal:data', data);
+        socket.emit('data', data);
     });
 
-    socket.on('Terminal:data', function(data) {
+    socket.on('data', function(data) {
         xterm.write(data);
     });
 
-    socket.on('Terminal:error', function(message) {
-        t.emit('error', message);
+    socket.on('err', function(message) {
+        t.emit('err', message);
     });
 
     var lastSelection;
@@ -86,7 +88,7 @@ function SSHTerminal(container, options) {
             return;
         }
 
-        socket.emit('Terminal:data', lastSelection);
+        socket.emit('data', lastSelection);
         event.stopPropagation();
     });
 

@@ -31,7 +31,6 @@ function setConnectionStatus(status) {
 
 
     terminal.on('attach', function() {
-        terminal.focus();
         setConnectionStatus('connected');
     });
 

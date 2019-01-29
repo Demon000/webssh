@@ -1,10 +1,18 @@
+var requests = superagent;
 var SSHAuth = {
     login: function(credentials, successFn) {
-        var socket = io();
-        socket.emit('main:login', credentials, successFn);
+        requests
+        .post('/auth/login')
+        .send(credentials)
+        .then(function(res) {
+            successFn(res.body.success);
+        });
     },
     logout: function(successFn) {
-        var socket = io();
-        socket.emit('main:logout', successFn);
+        requests
+        .post('/auth/logout')
+        .then(function(res) {
+            successFn(res.body.success);
+        });
     }
 };

@@ -1,108 +1,41 @@
-const path = require('path');
+const config = require('config');
 
-const Config = require('./config');
-
+const ExpressConfig = config.get('Express');
 const Express = require('express');
-const Server = require('http').Server;
-const Session = require('express-session');
-const SocketIO = require('socket.io');
-const SSH = require('./SSHWrapper');
-
 const app = Express();
-const server = Server(app);
-
 app.use(Express.static('public'));
 app.use(Express.json());
 
-app.set('view engine', 'ejs');
-
-const session = Session(Config.session);
+const Session = require('express-session');
+const SessionConfig = config.get('Session');
+const session = Session(SessionConfig);
 app.use(session);
 
+const Server = require('http').Server;
+const server = Server(app);
+
+const SocketIO = require('socket.io');
 const io = SocketIO(server, {
-    serveClient: false
+    serveClient: false,
 });
 
 io.use(function(socket, next) {
     session(socket.request, socket.request.res, next);
 });
 
-function getServer(name) {
-    return Config.servers[name] || {};
-}
+const terminalNamespace = io.of('/terminal');
+const terminal = require('./apps/terminal');
+terminal(terminalNamespace);
 
-function fillServer(credentials) {
-    return Object.assign(credentials, getServer(credentials.server));
-}
+//const fileExplorerNamespace = io.of('/file-explorer');
+//const fileExplorer = require('./apps/file-explorer');
+//fileExplorer(fileExplorerNamespace);
 
-io.on('connect', function(socket) {
-    socket.on('main:login', function(credentials, successFn) {
-        const session = socket.request.session;
+const auth = require('./apps/auth');
+app.use('/auth', auth);
 
-        fillServer(credentials);
+app.set('view engine', 'ejs');
+const web = require('./apps/web');
+app.use(web);
 
-        SSH.checkCredentials(credentials, function(success) {
-            if (success) {
-                session.credentials = credentials;
-                session.save();
-            }
-
-            successFn(success);
-        });
-    });
-
-    socket.on('main:logout', function(successFn) {
-        const session = socket.request.session;
-        session.destroy();
-        successFn(true);
-    });
-
-    socket.on('main:init', function(app, options, successFn) {
-        const session = socket.request.session;
-
-        if (!session.credentials) {
-            successFn(false);
-        }
-
-        SSH.apps[app](socket, session.credentials, options, function(stream) {
-            const success = stream ? true : false;
-            successFn(success);
-        });
-    });
-});
-
-function isLoggedIn(req, res, next) {
-    if (req.session.credentials) {
-        return next();
-    }
-
-    res.redirect('/');
-}
-
-app.get('/', function(req, res) {
-    if (req.session.credentials) {
-        res.render('lobby', {
-            credentials: req.session.credentials
-        });
-    } else {
-        res.render('index');
-    }
-});
-
-app.get('/terminal', isLoggedIn, function(req, res) {
-    res.render('terminal', {
-        credentials: req.session.credentials
-    });
-});
-
-app.get('/help', isLoggedIn, function(req, res) {
-    res.render('help');
-});
-
-app.get('/file-explorer', isLoggedIn, function(req, res) {
-    res.render('file-explorer', {
-        credentials: req.session.credentials
-    });
-});
-
-server.listen(Config.port);
+server.listen(ExpressConfig.port);
