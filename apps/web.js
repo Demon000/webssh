@@ -39,10 +39,4 @@ router.get('/help', authorize, function(req, res) {
     res.render('help');
 });
 
-router.get('/file-explorer', authorize, function(req, res) {
-    res.render('file-explorer', {
-        credentials: req.session.credentials,
-    });
-});
-
 module.exports = router;
