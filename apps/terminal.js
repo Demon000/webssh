@@ -11,12 +11,12 @@ function terminal(namespace) {
             const terminal = new SSH.Terminal();
             try {
                 await terminal.connect(credentials);
+                await terminal.shell(options);
             } catch (err) {
                 successFn(false);
                 return;
             }
 
-            await terminal.shell(options);
             terminal.use(socket);
             successFn(true);
         });
