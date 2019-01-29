@@ -9,7 +9,13 @@ function terminal(namespace) {
 
         socket.on('init', async (options, successFn) => {
             const terminal = new SSH.Terminal();
-            await terminal.connect(credentials);
+            try {
+                await terminal.connect(credentials);
+            } catch (err) {
+                successFn(false);
+                return;
+            }
+
             await terminal.shell(options);
             terminal.use(socket);
             successFn(true);
