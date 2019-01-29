@@ -35,6 +35,7 @@ function SSHTerminal(container, options) {
             }
 
             t.emit('attach');
+            resize();
         });
     }
 
