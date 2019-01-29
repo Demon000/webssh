@@ -27,10 +27,6 @@ const terminalNamespace = io.of('/terminal');
 const terminal = require('./apps/terminal');
 terminal(terminalNamespace);
 
-//const fileExplorerNamespace = io.of('/file-explorer');
-//const fileExplorer = require('./apps/file-explorer');
-//fileExplorer(fileExplorerNamespace);
-
 const auth = require('./apps/auth');
 app.use('/auth', auth);
 
