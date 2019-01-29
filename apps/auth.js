@@ -2,7 +2,7 @@ const config = require('config');
 const Servers = config.get('Servers');
 
 const Router = require('express').Router;
-const SSH = require('../lib/SSHWrapper');
+const SSH = require('../lib/SSH');
 
 function fillServer(credentials) {
     const data = Servers[credentials.server] || {};

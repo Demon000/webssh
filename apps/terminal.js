@@ -1,4 +1,4 @@
-const SSH = require('../lib/SSHWrapper');
+const SSH = require('../lib/SSH');
 
 function terminal(namespace) {
     namespace.on('connection', (socket) => {
