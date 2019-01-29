@@ -1,4 +1,4 @@
-const SSH = require('../lib/SSH');
+const { Terminal } = require('../lib/Terminal');
 
 function terminal(namespace) {
     namespace.on('connection', (socket) => {
@@ -8,7 +8,7 @@ function terminal(namespace) {
         }
 
         socket.on('init', async (options, successFn) => {
-            const terminal = new SSH.Terminal();
+            const terminal = new Terminal();
             try {
                 await terminal.connect(credentials);
                 await terminal.shell(options);
