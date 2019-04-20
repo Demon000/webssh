@@ -107,6 +107,50 @@ function SSHTerminal(container, options) {
         event.stopPropagation();
     });
 
+    function isNavigationEvent(event) {
+        var navigationKeys = ['ArrowLeft', 'ArrowRight'];
+        return event.shiftKey && navigationKeys.includes(event.key);
+    }
+
+    function isMoveWindowEvent(event) {
+        return event.ctrlKey && event.shiftKey;
+    }
+
+    function isChangeWindowEvent(event) {
+        return event.shiftKey;
+    }
+
+    xterm.attachCustomKeyEventHandler(function(event) {
+        if (!isNavigationEvent(event)) {
+            return true;
+        }
+
+        var prefix = String.fromCharCode(2);
+        var cr = String.fromCharCode(13);
+
+        var command = prefix;
+        if (isMoveWindowEvent(event)) {
+            command += ':swap-window -t ';
+
+            if (event.key == 'ArrowLeft') {
+                command += '-1';
+            } else if (event.key == 'ArrowRight') {
+                command += '+1';
+            }
+
+            command += cr;
+        } else if (isChangeWindowEvent(event)) {
+            if (event.key == 'ArrowLeft') {
+                command += 'p';
+            } else if (event.key == 'ArrowRight') {
+                command += 'n';
+            }
+        }
+
+        socket.emit('data', command);
+        return false;
+    });
+
     window.addEventListener('resize', resize);
 
     xterm
