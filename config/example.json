@@ -1,0 +1,20 @@
+{
+    "Express":  {
+        "port": 8080
+    },
+    "Session": {
+        "resave": true,
+        "saveUninitialized": true,
+        "secret": "ilovecats",
+        "unset": "destroy",
+        "cookie": {
+            "maxAge": 86400000
+        }
+    },
+    "Servers": {
+        "catnip": {
+            "host": "the.cathost.com",
+            "port": 22
+        }
+    }
+}

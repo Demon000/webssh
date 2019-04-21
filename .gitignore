@@ -76,4 +76,5 @@ typings/
 public/external
 
 # Configs
-config/
+config/*
+!config/example.json
