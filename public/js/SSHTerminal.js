@@ -107,30 +107,27 @@ function SSHTerminal(container, options) {
         event.stopPropagation();
     });
 
-    function isNavigationEvent(event) {
-        var navigationKeys = ['ArrowLeft', 'ArrowRight'];
-        return event.shiftKey && navigationKeys.includes(event.key);
-    }
+    var navigationKeys = ['ArrowLeft', 'ArrowRight'];
 
     function isMoveWindowEvent(event) {
-        return event.ctrlKey && event.shiftKey;
+        return event.ctrlKey && event.shiftKey && navigationKeys.includes(event.key);
+    }
+
+    function isCreateWindowEvent(event) {
+        return event.ctrlKey && event.shiftKey && event.key == "T";
     }
 
     function isChangeWindowEvent(event) {
-        return event.shiftKey;
+        return event.shiftKey && navigationKeys.includes(event.key);
     }
 
     xterm.attachCustomKeyEventHandler(function(event) {
-        if (!isNavigationEvent(event)) {
-            return true;
-        }
-
         var prefix = String.fromCharCode(2);
         var cr = String.fromCharCode(13);
+        var command;
 
-        var command = prefix;
         if (isMoveWindowEvent(event)) {
-            command += ':swap-window -t ';
+            command = prefix + ':swap-window -t ';
 
             if (event.key == 'ArrowLeft') {
                 command += '-1';
@@ -139,12 +136,20 @@ function SSHTerminal(container, options) {
             }
 
             command += cr;
+        } else if (isCreateWindowEvent(event)) {
+            command = prefix + 'c' + cr;
         } else if (isChangeWindowEvent(event)) {
+            command = prefix;
+
             if (event.key == 'ArrowLeft') {
                 command += 'p';
             } else if (event.key == 'ArrowRight') {
                 command += 'n';
             }
+
+            command += cr;
+        } else {
+            return true;
         }
 
         socket.emit('data', command);
