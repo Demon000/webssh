@@ -137,7 +137,7 @@ function SSHTerminal(container, options) {
 
             command += cr;
         } else if (isCreateWindowEvent(event)) {
-            command = prefix + 'c' + cr;
+            command = prefix + 'c';
         } else if (isChangeWindowEvent(event)) {
             command = prefix;
 
@@ -146,8 +146,6 @@ function SSHTerminal(container, options) {
             } else if (event.key == 'ArrowRight') {
                 command += 'n';
             }
-
-            command += cr;
         } else {
             return true;
         }
