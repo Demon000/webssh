@@ -30,6 +30,7 @@ terminal(terminalNamespace);
 const auth = require('./apps/auth');
 app.use('/auth', auth);
 
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 const web = require('./apps/web');
 app.use('/', web);
