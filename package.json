@@ -22,7 +22,7 @@
     "nodemon": "^1.19.1"
   },
   "dependencies": {
-    "config": "^3.0.1",
+    "config": "^3.3.8",
     "dep-linker": "^1.0.24",
     "ejs": "^2.6.1",
     "eventemitter3": "^3.1.0",
